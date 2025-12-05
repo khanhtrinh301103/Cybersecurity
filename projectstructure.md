@@ -41,6 +41,10 @@ Cybersecurity/
 ├── instance/                  # Dữ liệu instance-specific (database file, config)
 │   └── app.sqlite             # SQLite database file (tự động tạo)
 │
+├── ThreatDragonModels/ 
+│   └── first threat model/
+│       ├── first threat model.json
+│
 ├── .gitignore                 # Ignore files cho Git
 ├── README.md                  # Mô tả project
 ├── pyproject.toml             # Project metadata và dependencies
