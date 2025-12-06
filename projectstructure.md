@@ -42,8 +42,8 @@ Cybersecurity/
 │   └── app.sqlite             # SQLite database file (tự động tạo)
 │
 ├── ThreatDragonModels/ 
-│   └── first threat model/
-│       ├── first threat model.json
+│   └── banking-system/
+│       ├── banking-system.json
 │
 ├── .gitignore                 # Ignore files cho Git
 ├── README.md                  # Mô tả project
