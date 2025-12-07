@@ -443,15 +443,15 @@
             "data": {
               "type": "tm.Flow",
               "name": "HTTP/HTTPS Requests",
-              "description": "",
+              "description": "Login, transfer, profile requests",
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
+              "isEncrypted": true,
               "isPublicNetwork": false,
-              "protocol": "",
+              "protocol": "HTTPS",
               "threats": []
             },
             "labels": [
@@ -470,6 +470,61 @@
               {
                 "x": 150,
                 "y": 410
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "SQL Queries",
+              "description": "SELECT, INSERT, UPDATE operations",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "SQL Queries"
+            ],
+            "id": "37ca2e90-d1e7-4924-acdc-6b1c380f1760",
+            "source": {
+              "x": 760,
+              "y": 410
+            },
+            "target": {
+              "cell": "41301a5d-f576-4bec-83fc-2167d3482edc",
+              "port": "895ef018-8c06-4a30-8559-44288a6e4231"
+            },
+            "vertices": [
+              {
+                "x": 830,
+                "y": 390
+              },
+              {
+                "x": 870,
+                "y": 370
               }
             ]
           }
