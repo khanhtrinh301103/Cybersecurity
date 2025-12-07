@@ -253,6 +253,130 @@
               "privilegeLevel": "",
               "threats": []
             }
+          },
+          {
+            "position": {
+              "x": 953,
+              "y": 320
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "350ced10-7a91-4a2b-8761-c750305b2cbd"
+                },
+                {
+                  "group": "right",
+                  "id": "e93d3eab-8d72-4b8f-b6fa-6af55f0ec692"
+                },
+                {
+                  "group": "bottom",
+                  "id": "63b226ae-35ee-4987-bd95-495dfd448978"
+                },
+                {
+                  "group": "left",
+                  "id": "895ef018-8c06-4a30-8559-44288a6e4231"
+                }
+              ]
+            },
+            "id": "41301a5d-f576-4bec-83fc-2167d3482edc",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite Database",
+              "description": "Stores users, accounts, transactions",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false,
+              "threats": []
+            }
           }
         ],
         "description": "Data flow diagram showing user, web app, and database"
