@@ -282,7 +282,7 @@
                   "id": "339b6713-3bcb-4bb0-8e11-c3e02b1fdd87",
                   "title": "CSRF in Money Transfer",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "High",
                   "type": "Elevation of privilege",
                   "description": "Attacker tricks authenticated user into making unauthorized money transfers by visiting a malicious website that automatically submits a hidden form to the banking application.\n\nExample attack:\nMalicious website contains:\n<form id=\"evil\" action=\"http://bankingapp.com/transfer\" method=\"POST\">\n  <input type=\"hidden\" name=\"to_account\" value=\"attacker123\">\n  <input type=\"hidden\" name=\"amount\" value=\"5000\">\n</form>\n<script>document.getElementById('evil').submit();</script>\n\nAttack scenario:\n1. User logs into banking app (session active)\n2. User visits attacker's website (without logging out)\n3. Hidden form automatically submits\n4. $5000 transferred to attacker's account\n5. User discovers loss later",
                   "mitigation": "1. Implement CSRF tokens in all state-changing forms (POST, PUT, DELETE)\n2. Use Flask-WTF CSRF protection module\n3. Set SameSite cookie attribute to 'Strict' or 'Lax'\n4. Verify Referer and Origin headers\n5. Use double-submit cookie pattern\n6. Require re-authentication for sensitive operations\n7. Implement transaction confirmation via email/SMS",
@@ -311,7 +311,7 @@
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 0,
-                "elevationOfPrivilege": 1
+                "elevationOfPrivilege": 2
               }
             }
           },
