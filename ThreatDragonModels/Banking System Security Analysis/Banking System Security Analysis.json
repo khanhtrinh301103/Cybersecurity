@@ -527,6 +527,67 @@
                 "y": 370
               }
             ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query Results",
+              "description": "User data, account balances",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Query Results"
+            ],
+            "id": "4f0e2f28-209a-49f1-b79e-bb1415cf68f8",
+            "source": {
+              "cell": "41301a5d-f576-4bec-83fc-2167d3482edc",
+              "port": "63b226ae-35ee-4987-bd95-495dfd448978"
+            },
+            "target": {
+              "cell": "b4c3275f-114e-47a4-b790-895d1219c196",
+              "port": "f3f4c042-5834-4d51-b5cd-09f0faad800a"
+            },
+            "vertices": [
+              {
+                "x": 880,
+                "y": 410
+              }
+            ],
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove",
+                "vertices",
+                "source-arrowhead",
+                "target-arrowhead"
+              ],
+              "name": null
+            }
           }
         ],
         "description": "Data flow diagram showing user, web app, and database"
