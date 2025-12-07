@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 50px auto;">
+    <h2 style="margin-bottom: 20px; color: #333;">Login to Your Account</h2>
+    
+    <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
+        <div>
+            <label for="username" style="display: block; margin-bottom: 5px; font-weight: bold;">Username:</label>
+            <input 
+                type="text" 
+                name="username" 
+                id="username" 
+                required
+                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+            >
+        </div>
+
+        <div>
+            <label for="password" style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                required
+                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+            >
+        </div>
+
+        <button 
+            type="submit"
+            style="padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;"
+        >
+            Login
+        </button>
+    </form>
+
+    <p style="margin-top: 20px; text-align: center;">
+        Don't have an account? 
+        <a href="{{ url_for('auth.register') }}" style="color: #007bff; text-decoration: none; font-weight: bold;">Register here</a>
+    </p>
+
+    <!-- Test Credentials Box -->
+    <div style="margin-top: 30px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px;">
+        <h4 style="margin-bottom: 10px; color: #856404;">🔓 Test Credentials:</h4>
+        <ul style="list-style: none; padding-left: 0; color: #856404; font-size: 14px;">
+            <li><strong>Admin:</strong> username: <code>admin</code>, password: <code>admin123</code></li>
+            <li><strong>Alice:</strong> username: <code>alice</code>, password: <code>alice123</code></li>
+            <li><strong>Bob:</strong> username: <code>bob</code>, password: <code>bob123</code></li>
+        </ul>
+    </div>
+
+    <!-- SQL Injection Hint Box -->
+    <div style="margin-top: 15px; padding: 15px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
+        <h4 style="margin-bottom: 10px; color: #721c24;">⚠️ Vulnerability Warning:</h4>
+        <p style="color: #721c24; font-size: 14px; margin: 0;">
+            This login form is vulnerable to SQL Injection!<br>
+            Try: <code>admin' OR '1'='1</code> as username (any password)
+        </p>
+    </div>
+</div>
+{% endblock %}
