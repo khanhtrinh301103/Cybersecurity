@@ -377,6 +377,101 @@
               "storesInventory": false,
               "threats": []
             }
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Stores users, accounts, transactions",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "labels": [
+              "Stores users, accounts, transactions"
+            ],
+            "id": "c5b0fe4e-3b4e-4c16-8a9f-e430ff0ceb12",
+            "source": {
+              "x": 690,
+              "y": 560
+            },
+            "target": {
+              "x": 1080,
+              "y": 520
+            },
+            "vertices": [
+              {
+                "x": 420,
+                "y": 330
+              },
+              {
+                "x": 560,
+                "y": 230
+              },
+              {
+                "x": 760,
+                "y": 180
+              },
+              {
+                "x": 1170,
+                "y": 210
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP/HTTPS Requests",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP/HTTPS Requests"
+            ],
+            "id": "50d9bb25-4d7e-4428-a59f-ed8d7fea8517",
+            "source": {
+              "x": 140,
+              "y": 190
+            },
+            "target": {
+              "cell": "b4c3275f-114e-47a4-b790-895d1219c196",
+              "port": "ae024e28-62fe-4ccf-b17e-c4f197a48944"
+            },
+            "vertices": [
+              {
+                "x": 150,
+                "y": 410
+              }
+            ]
           }
         ],
         "description": "Data flow diagram showing user, web app, and database"
