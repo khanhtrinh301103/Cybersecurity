@@ -577,16 +577,51 @@
                 "x": 880,
                 "y": 410
               }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Responses",
+              "description": "HTML pages, JSON data",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Responses"
             ],
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove",
-                "vertices",
-                "source-arrowhead",
-                "target-arrowhead"
-              ],
-              "name": null
+            "id": "3b122cb8-17ed-4ccb-b57b-50b4d234e76f",
+            "source": {
+              "x": 590,
+              "y": 410
+            },
+            "target": {
+              "cell": "71822cdc-974c-4f3d-b62b-b483113be1e7",
+              "port": "abc02d46-fdfd-48f7-b349-f092db84735f"
             }
           }
         ],
