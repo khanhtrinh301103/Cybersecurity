@@ -70,5 +70,22 @@ def create_app(test_config=None):
         ).fetchall()
         
         return render_template('dashboard.html', account=account, transactions=transactions)
+    
+    # Profile route (placeholder - will add XSS vulnerability later)
+    @app.route('/profile')
+    @auth.login_required
+    def profile():
+        """User profile page - will contain XSS vulnerability"""
+        return render_template('profile.html')
+
+    # Transfer route (placeholder - will add CSRF vulnerability later)
+    @app.route('/transfer', methods=['GET', 'POST'])
+    @auth.login_required
+    def transfer():
+        """Money transfer page - will contain CSRF vulnerability"""
+        if request.method == 'POST':
+            # Will implement transfer logic with CSRF vulnerability
+            pass
+        return render_template('transfer.html')
 
     return app

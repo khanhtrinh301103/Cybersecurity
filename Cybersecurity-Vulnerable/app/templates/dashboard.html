@@ -50,7 +50,7 @@
             <tbody>
                 {% for transaction in transactions %}
                 <tr style="border-bottom: 1px solid #dee2e6;">
-                    <td style="padding: 12px;">{{ transaction['transaction_date'][:10] }}</td>
+                    <td style="padding: 12px;">{{ transaction['transaction_date'].strftime('%Y-%m-%d') if transaction['transaction_date'] else 'N/A' }}</td>
                     <td style="padding: 12px;">{{ transaction['from_account'] }}</td>
                     <td style="padding: 12px;">{{ transaction['to_account'] }}</td>
                     <style>
