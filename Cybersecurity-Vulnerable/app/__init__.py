@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request, redirect, url_for, flash
+
 
 def create_app(test_config=None):
     """
@@ -71,21 +72,135 @@ def create_app(test_config=None):
         
         return render_template('dashboard.html', account=account, transactions=transactions)
     
-    # Profile route (placeholder - will add XSS vulnerability later)
-    @app.route('/profile')
+    # Profile route - XSS VULNERABILITY
+    @app.route('/profile', methods=['GET', 'POST'])
     @auth.login_required
     def profile():
-        """User profile page - will contain XSS vulnerability"""
+        """
+        User profile page
+        
+        ⚠️ SECURITY WARNING: This page is VULNERABLE to XSS (Cross-Site Scripting)!
+        User input (bio) is displayed without HTML escaping.
+        """
+        from app.db import get_db
+        
+        if request.method == 'POST':
+            bio = request.form.get('bio', '')
+            
+            # ⚠️ VULNERABLE: No input validation or sanitization
+            # Allows XSS payloads like: <script>alert('XSS')</script>
+            
+            db = get_db()
+            db.execute(
+                'UPDATE users SET bio = ? WHERE id = ?',
+                (bio, g.user['id'])
+            )
+            db.commit()
+            
+            flash('Profile updated successfully!', 'success')
+            return redirect(url_for('profile'))
+        
+        # Get current user info
         return render_template('profile.html')
-
-    # Transfer route (placeholder - will add CSRF vulnerability later)
+    
+    
+    
+    # Transfer route - CSRF VULNERABILITY
     @app.route('/transfer', methods=['GET', 'POST'])
     @auth.login_required
     def transfer():
-        """Money transfer page - will contain CSRF vulnerability"""
+        """
+        Money transfer page
+        
+        ⚠️ SECURITY WARNING: This page is VULNERABLE to CSRF (Cross-Site Request Forgery)!
+        No CSRF token validation - attacker can trick users into transferring money.
+        """
+        from app.db import get_db
+        
         if request.method == 'POST':
-            # Will implement transfer logic with CSRF vulnerability
-            pass
-        return render_template('transfer.html')
+            to_account_number = request.form.get('to_account')
+            amount = request.form.get('amount')
+            description = request.form.get('description', '')
+            
+            db = get_db()
+            error = None
+            
+            # Get user's account
+            from_account = db.execute(
+                'SELECT * FROM accounts WHERE user_id = ?',
+                (g.user['id'],)
+            ).fetchone()
+            
+            # Get recipient's account
+            to_account = db.execute(
+                'SELECT * FROM accounts WHERE account_number = ?',
+                (to_account_number,)
+            ).fetchone()
+            
+            # Basic validation
+            try:
+                amount = float(amount)
+            except (ValueError, TypeError):
+                error = 'Invalid amount'
+            
+            if not to_account_number:
+                error = 'Recipient account is required'
+            elif not to_account:
+                error = f'Account {to_account_number} not found'
+            elif amount <= 0:
+                error = 'Amount must be greater than 0'
+            elif amount > from_account['balance']:
+                error = 'Insufficient balance'
+            elif from_account['account_number'] == to_account_number:
+                error = 'Cannot transfer to your own account'
+            
+            if error is None:
+                # ⚠️ VULNERABLE: No CSRF token validation!
+                # Any website can submit this form and transfer money
+                
+                # Deduct from sender
+                db.execute(
+                    'UPDATE accounts SET balance = balance - ? WHERE id = ?',
+                    (amount, from_account['id'])
+                )
+                
+                # Add to recipient
+                db.execute(
+                    'UPDATE accounts SET balance = balance + ? WHERE id = ?',
+                    (amount, to_account['id'])
+                )
+                
+                # Record transaction
+                db.execute(
+                    '''INSERT INTO transactions 
+                       (from_account_id, to_account_id, amount, description) 
+                       VALUES (?, ?, ?, ?)''',
+                    (from_account['id'], to_account['id'], amount, description)
+                )
+                
+                db.commit()
+                
+                flash(f'Successfully transferred ${amount:.2f} to {to_account_number}', 'success')
+                return redirect(url_for('dashboard'))
+            
+            flash(error, 'error')
+        
+        # Get user's account info
+        from app.db import get_db
+        account = get_db().execute(
+            'SELECT * FROM accounts WHERE user_id = ?',
+            (g.user['id'],)
+        ).fetchone()
+        
+        # Get other accounts for testing
+        other_accounts = get_db().execute(
+            '''SELECT a.account_number, u.username 
+               FROM accounts a 
+               JOIN users u ON a.user_id = u.id 
+               WHERE a.user_id != ?''',
+            (g.user['id'],)
+        ).fetchall()
+        
+        return render_template('transfer.html', account=account, other_accounts=other_accounts)
 
     return app

