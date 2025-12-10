@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Transfer Money{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">💸 Transfer Money</h2>
+
+    <!-- Account Balance -->
+    <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 30px;">
+        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 5px;">Available Balance</p>
+        <p style="font-size: 32px; font-weight: bold; margin: 0;">
+            ${{ "%.2f"|format(account['balance']) }}
+        </p>
+        <p style="font-size: 12px; opacity: 0.8; margin-top: 5px;">
+            Account: {{ account['account_number'] }}
+        </p>
+    </div>
+
+    <!-- Transfer Form -->
+    <form method="post" style="display: flex; flex-direction: column; gap: 20px;">
+        {# ✅ SECURE: CSRF token automatically included by Flask-WTF #}
+        {# This prevents CSRF attacks from external websites #}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        
+        <div>
+            <label for="to_account" style="display: block; margin-bottom: 8px; font-weight: bold;">
+                To Account Number: <span style="color: red;">*</span>
+            </label>
+            <input 
+                type="text" 
+                name="to_account" 
+                id="to_account" 
+                required
+                placeholder="Enter recipient account number"
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+            >
+            
+            {% if other_accounts %}
+            <details style="margin-top: 10px;">
+                <summary style="cursor: pointer; color: #007bff; font-size: 13px;">
+                    📋 Available test accounts
+                </summary>
+                <ul style="margin-top: 10px; padding-left: 20px; font-size: 13px; color: #666;">
+                    {% for acc in other_accounts %}
+                    <li>
+                        <strong>{{ acc['account_number'] }}</strong> 
+                        ({{ acc['username'] }})
+                        <button type="button" class="select-account" data-acc="{{ acc['account_number'] }}">
+                            Select
+                        </button>
+
+                        <script>
+                        document.querySelectorAll('.select-account').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                document.getElementById('to_account').value = this.dataset.acc;
+                            });
+                        });
+                        </script>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </details>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="amount" style="display: block; margin-bottom: 8px; font-weight: bold;">
+                Amount: <span style="color: red;">*</span>
+            </label>
+            <input 
+                type="number" 
+                name="amount" 
+                id="amount" 
+                step="0.01"
+                min="0.01"
+                required
+                placeholder="0.00"
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+            >
+        </div>
+
+        <div>
+            <label for="description" style="display: block; margin-bottom: 8px; font-weight: bold;">
+                Description (Optional):
+            </label>
+            <input 
+                type="text" 
+                name="description" 
+                id="description" 
+                placeholder="Payment for..."
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+            >
+        </div>
+
+        <button 
+            type="submit"
+            style="padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;"
+        >
+            Transfer Money
+        </button>
+    </form>
+
+    <!-- CSRF Protection Info -->
+    <div style="margin-top: 30px; padding: 20px; background-color: #d4edda; border: 2px solid #c3e6cb; border-radius: 8px;">
+        <h4 style="color: #155724; margin-bottom: 15px;">✅ CSRF Protection Implemented</h4>
+        <p style="color: #155724; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            This transfer form has <strong>CSRF (Cross-Site Request Forgery) protection</strong>!
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #155724;">Security Measures:</strong>
+            <ul style="margin-top: 10px; color: #155724; font-size: 13px; line-height: 1.8; padding-left: 20px;">
+                <li>✅ CSRF token in form (Flask-WTF)</li>
+                <li>✅ SameSite cookie attribute (Lax)</li>
+                <li>✅ Automatic token validation</li>
+                <li>✅ External websites cannot submit this form</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Test CSRF Protection:</strong>
+            <p style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                Try submitting this form from an external website - it will be rejected!
+                The CSRF token prevents unauthorized form submissions.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

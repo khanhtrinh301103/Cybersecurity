@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">👤 User Profile</h2>
+
+    <!-- User Info Display -->
+    <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;">
+        <h3 style="color: #333; margin-bottom: 15px;">Profile Information</h3>
+        <p><strong>Username:</strong> {{ g.user['username'] }}</p>
+        <p><strong>Email:</strong> {{ g.user['email'] }}</p>
+        <p><strong>Full Name:</strong> {{ g.user['full_name'] or 'Not set' }}</p>
+        
+        <div style="margin-top: 20px;">
+            <strong>Bio:</strong>
+            <div style="margin-top: 10px; padding: 15px; background-color: white; border-radius: 4px; border: 1px solid #dee2e6; min-height: 60px;">
+                {# ✅ SECURE: HTML is automatically escaped by Jinja2 (no |safe filter) #}
+                {# XSS payloads will be displayed as plain text, not executed #}
+                {% if g.user['bio'] %}
+                    {{ g.user['bio'] }}
+                {% else %}
+                    <em style="color: #999;">No bio set</em>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div>
+        <h3 style="color: #333; margin-bottom: 15px;">Edit Profile</h3>
+        
+        <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
+            {# ✅ SECURE: CSRF token automatically included by Flask-WTF #}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <div>
+                <label for="bio" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                    Bio / About Me:
+                </label>
+                <textarea 
+                    name="bio" 
+                    id="bio" 
+                    rows="5"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; font-family: Arial, sans-serif;"
+                    placeholder="Tell us about yourself..."
+                >{{ g.user['bio'] if g.user['bio'] else '' }}</textarea>
+                <small style="color: #666; font-size: 12px;">
+                    HTML tags will be escaped for security.
+                </small>
+            </div>
+
+            <button 
+                type="submit"
+                style="padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;"
+            >
+                Update Profile
+            </button>
+        </form>
+    </div>
+
+    <!-- Security Info Box -->
+    <div style="margin-top: 30px; padding: 20px; background-color: #d4edda; border: 2px solid #c3e6cb; border-radius: 8px;">
+        <h4 style="color: #155724; margin-bottom: 15px;">✅ XSS Protection Implemented</h4>
+        <p style="color: #155724; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            This profile page is <strong>protected against XSS (Cross-Site Scripting)</strong>!
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #155724;">Security Measures:</strong>
+            <ul style="margin-top: 10px; color: #155724; font-size: 13px; line-height: 1.8;">
+                <li>✅ HTML escaping via Jinja2 autoescape (default)</li>
+                <li>✅ Input sanitization before storage</li>
+                <li>✅ No |safe filter used (prevents script execution)</li>
+                <li>✅ CSRF token protection on form submission</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Try these XSS payloads (they will be escaped):</strong>
+            <ul style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                <li><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> - Will display as text</li>
+                <li><code>&lt;img src=x onerror="alert('XSS')"&gt;</code> - Will display as text</li>
+                <li><code>&lt;h1&gt;Hacked!&lt;/h1&gt;</code> - Will display as text</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

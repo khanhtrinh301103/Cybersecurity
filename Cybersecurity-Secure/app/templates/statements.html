@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Statements{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">📄 Transaction Statements</h2>
+
+    <!-- Account Info -->
+    <div style="padding: 15px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;">
+        <p><strong>Account:</strong> {{ account['account_number'] }}</p>
+        <p><strong>Current Balance:</strong> ${{ "%.2f"|format(account['balance']) }}</p>
+    </div>
+
+    <!-- Available Files -->
+    <div>
+        <h3 style="color: #333; margin-bottom: 20px;">Available Documents</h3>
+        
+        {% if files %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f8f9fa; text-align: left;">
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">File Name</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 12px;">
+                            <span style="font-family: monospace;">📄 {{ file }}</span>
+                        </td>
+                        <td style="padding: 12px;">
+                            <a 
+                                href="{{ url_for('download', file='statements/' ~ file) }}"
+                                style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 14px;"
+                            >
+                                Download
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="color: #666; text-align: center; padding: 40px;">
+                No statements available yet.
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Path Traversal Protection Info -->
+    <div style="margin-top: 40px; padding: 20px; background-color: #d4edda; border: 2px solid #c3e6cb; border-radius: 8px;">
+        <h4 style="color: #155724; margin-bottom: 15px;">✅ Path Traversal Protection Implemented</h4>
+        <p style="color: #155724; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            The download feature is <strong>protected against Path Traversal attacks</strong>!
+            Attackers cannot access files outside the intended directory.
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #155724;">Security Measures:</strong>
+            <ul style="margin-top: 10px; color: #155724; font-size: 13px; line-height: 1.8;">
+                <li>✅ Path normalization (os.path.basename)</li>
+                <li>✅ Whitelist-based file access (statements directory only)</li>
+                <li>✅ Absolute path verification</li>
+                <li>✅ User-specific file access control</li>
+                <li>✅ Directory traversal attempts blocked</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Test Path Traversal Protection:</strong>
+            <p style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                Try accessing files like <code>../schema.sql</code> or <code>../../app/auth.py</code> - 
+                they will be rejected! Only files in your statements directory are accessible.
+            </p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a 
+            href="{{ url_for('dashboard') }}"
+            style="display: inline-block; padding: 12px 24px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;"
+        >
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}
+

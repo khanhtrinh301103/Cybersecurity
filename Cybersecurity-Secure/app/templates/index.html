@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="card" style="text-align: center; max-width: 800px; margin: 50px auto;">
+    <h1 style="color: #333; margin-bottom: 20px;">🏦 Welcome to Secure Bank</h1>
+    <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
+        Your trusted online banking platform
+    </p>
+
+    {% if g.user %}
+        <p style="font-size: 16px; margin-bottom: 20px;">
+            Hello, <strong>{{ g.user['username'] }}</strong>!
+        </p>
+        <a 
+            href="{{ url_for('dashboard') }}"
+            style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 16px; font-weight: bold;"
+        >
+            Go to Dashboard →
+        </a>
+    {% else %}
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+            <a 
+                href="{{ url_for('auth.login') }}"
+                style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 16px; font-weight: bold;"
+            >
+                Login
+            </a>
+            <a 
+                href="{{ url_for('auth.register') }}"
+                style="display: inline-block; padding: 15px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; font-size: 16px; font-weight: bold;"
+            >
+                Register
+            </a>
+        </div>
+    {% endif %}
+
+    <!-- Security Features Box -->
+    <div style="margin-top: 50px; padding: 20px; background-color: #d4edda; border: 2px solid #28a745; border-radius: 8px;">
+        <h3 style="color: #155724; margin-bottom: 15px;">✅ Security Features Implemented</h3>
+        <p style="color: #155724; font-size: 14px; line-height: 1.6;">
+            This is the <strong>SECURE VERSION</strong> of the banking application.<br>
+            All security vulnerabilities have been fixed and protected.
+        </p>
+        <div style="margin-top: 15px; text-align: left; color: #155724;">
+            <strong>Security Measures:</strong>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>✅ SQL Injection protection (parameterized queries)</li>
+                <li>✅ Password hashing (werkzeug.security)</li>
+                <li>✅ XSS protection (HTML escaping)</li>
+                <li>✅ CSRF protection (Flask-WTF tokens)</li>
+                <li>✅ Path Traversal protection (path validation & whitelist)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left;">
+        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h4 style="color: #333; margin-bottom: 10px;">💰 Account Management</h4>
+            <p style="color: #666; font-size: 14px;">View balances and account details</p>
+        </div>
+        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h4 style="color: #333; margin-bottom: 10px;">💸 Money Transfer</h4>
+            <p style="color: #666; font-size: 14px;">Send money to other accounts</p>
+        </div>
+        <div style="padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h4 style="color: #333; margin-bottom: 10px;">📊 Transaction History</h4>
+            <p style="color: #666; font-size: 14px;">Track all your transactions</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
