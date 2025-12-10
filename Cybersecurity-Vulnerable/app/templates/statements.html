@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Statements{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">📄 Transaction Statements</h2>
+
+    <!-- Account Info -->
+    <div style="padding: 15px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;">
+        <p><strong>Account:</strong> {{ account['account_number'] }}</p>
+        <p><strong>Current Balance:</strong> ${{ "%.2f"|format(account['balance']) }}</p>
+    </div>
+
+    <!-- Available Files -->
+    <div>
+        <h3 style="color: #333; margin-bottom: 20px;">Available Documents</h3>
+        
+        {% if files %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f8f9fa; text-align: left;">
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">File Name</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 12px;">
+                            <span style="font-family: monospace;">📄 {{ file }}</span>
+                        </td>
+                        <td style="padding: 12px;">
+                            <a 
+                                href="{{ url_for('download', file='statements/' ~ file) }}"
+                                style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-size: 14px;"
+                            >
+                                Download
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="color: #666; text-align: center; padding: 40px;">
+                No statements available yet.
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Path Traversal Vulnerability Warning -->
+    <div style="margin-top: 40px; padding: 20px; background-color: #f8d7da; border: 2px solid #f5c6cb; border-radius: 8px;">
+        <h4 style="color: #721c24; margin-bottom: 15px;">⚠️ Path Traversal Vulnerability Warning</h4>
+        <p style="color: #721c24; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            The download feature is <strong>vulnerable to Path Traversal attacks</strong>!
+            Attackers can access files outside the intended directory.
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #721c24;">Try these Path Traversal payloads:</strong>
+            <ul style="margin-top: 10px; color: #721c24; font-size: 13px; line-height: 1.8;">
+                <li><code>/download/../schema.sql</code> - Access database schema</li>
+                <li><code>/download/../../app/auth.py</code> - Access source code</li>
+                <li><code>/download/../../../requirements.txt</code> - Access project files</li>
+                <li><code>/download/../../../../etc/passwd</code> - Access system files (Linux)</li>
+                <li><code>/download/..\..\..\..\Windows\System32\drivers\etc\hosts</code> - Windows hosts file</li>
+            </ul>
+            
+            <p style="margin-top: 15px; color: #721c24; font-size: 13px;">
+                <strong>How to test:</strong> Manually edit the URL in browser address bar:
+                <br>
+                <code style="background-color: #f8f9fa; padding: 5px 10px; border-radius: 3px; display: inline-block; margin-top: 5px;">
+                    http://localhost:5000/download/../schema.sql
+                </code>
+            </p>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Why is this dangerous?</strong>
+            <ul style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                <li>Attackers can read source code (steal business logic)</li>
+                <li>Access configuration files (database credentials)</li>
+                <li>Read system files (/etc/passwd, etc.)</li>
+                <li>Discover sensitive information</li>
+            </ul>
+        </div>
+
+        <!-- Test Area -->
+        <div style="margin-top: 20px; padding: 15px; background-color: #e7f3ff; border-radius: 4px;">
+            <strong style="color: #004085;">🧪 Quick Test:</strong>
+            <p style="color: #004085; font-size: 13px; margin-top: 10px;">
+                Click links below to test Path Traversal (will attempt to download files):
+            </p>
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
+                <a href="{{ url_for('download', filename='../schema.sql') }}" 
+                   style="padding: 8px 12px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; font-size: 12px;">
+                    Test: ../schema.sql
+                </a>
+                <a href="{{ url_for('download', filename='../../app/auth.py') }}" 
+                   style="padding: 8px 12px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; font-size: 12px;">
+                    Test: ../../app/auth.py
+                </a>
+                <a href="{{ url_for('download', filename='../../app/__init__.py') }}" 
+                   style="padding: 8px 12px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; font-size: 12px;">
+                    Test: ../../app/__init__.py
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a 
+            href="{{ url_for('dashboard') }}"
+            style="display: inline-block; padding: 12px 24px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;"
+        >
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

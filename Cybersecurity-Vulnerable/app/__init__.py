@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, g, request, redirect, url_for, flash
+from flask import Flask, render_template, g, request, redirect, url_for, flash, send_file
 
 
 def create_app(test_config=None):
@@ -202,5 +202,88 @@ def create_app(test_config=None):
         ).fetchall()
         
         return render_template('transfer.html', account=account, other_accounts=other_accounts)
+    
+
+
+    
+    # VULNERABLE Download route – Path Traversal via query parameter
+    @app.route('/download')
+    @auth.login_required
+    def download():
+        """
+        Download transaction statement or documents
+
+        ⚠️ SECURITY WARNING: This function is VULNERABLE to Path Traversal!
+        The 'file' query parameter is not validated, so attackers can use
+        ../ to access files outside the intended directory.
+        Example: /download?file=../../app/schema.sql
+        """
+        try:
+            # Base directory = instance folder
+            # Legit files nằm ở: instance/statements/...
+            base_dir = app.instance_path
+
+            # ⚠️ VULNERABLE: Lấy trực tiếp input từ query, không kiểm tra
+            filename = request.args.get('file', '')
+
+            # Nối path thẳng với user input
+            filepath = os.path.join(base_dir, filename)
+
+            return send_file(filepath, as_attachment=True)
+
+        except FileNotFoundError:
+            flash(f'File not found: {filepath}', 'error')
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            flash(f'Error downloading file: {str(e)}', 'error')
+            return redirect(url_for('dashboard'))
+
+    
+    
+    # Statements route - List available statements
+    @app.route('/statements')
+    @auth.login_required
+    def statements():
+        """
+        List available transaction statements for download
+        """
+        import os
+        from app.db import get_db
+        
+        # Get user's account
+        account = get_db().execute(
+            'SELECT * FROM accounts WHERE user_id = ?',
+            (g.user['id'],)
+        ).fetchone()
+        
+        # Create statements directory if not exists
+        statements_dir = os.path.join(app.instance_path, 'statements')
+        os.makedirs(statements_dir, exist_ok=True)
+        
+        # Create sample statement files for demonstration
+        sample_files = [
+            f'statement_{account["account_number"]}_2024_01.txt',
+            f'statement_{account["account_number"]}_2024_02.txt',
+            f'receipt_{account["id"]}_001.txt'
+        ]
+        
+        for sample_file in sample_files:
+            filepath = os.path.join(statements_dir, sample_file)
+            if not os.path.exists(filepath):
+                with open(filepath, 'w') as f:
+                    f.write(f"Transaction Statement\n")
+                    f.write(f"Account: {account['account_number']}\n")
+                    f.write(f"Balance: ${account['balance']:.2f}\n")
+                    f.write(f"Generated: 2024-01-01\n")
+        
+        # List all files in statements directory
+        try:
+            files = os.listdir(statements_dir)
+            # Filter to show only user's files
+            user_files = [f for f in files if account['account_number'] in f or str(account['id']) in f]
+        except:
+            user_files = []
+        
+        return render_template('statements.html', files=user_files, account=account)
 
     return app
