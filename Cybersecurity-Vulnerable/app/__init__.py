@@ -285,5 +285,58 @@ def create_app(test_config=None):
             user_files = []
         
         return render_template('statements.html', files=user_files, account=account)
+    
+
+    
+
+    # Account details route - IDOR VULNERABILITY
+    @app.route('/account/<int:account_id>')
+    @auth.login_required
+    def account_details(account_id):
+        """
+        View account details
+        
+        ⚠️ SECURITY WARNING: IDOR (Insecure Direct Object Reference)!
+        User can view ANY account by changing the account_id in URL.
+        No authorization check to verify account belongs to logged-in user.
+        """
+        from app.db import get_db
+        
+        # ⚠️ VULNERABLE: No authorization check!
+        # Directly fetching account based on user-supplied ID
+        account = get_db().execute(
+            'SELECT * FROM accounts WHERE id = ?',
+            (account_id,)
+        ).fetchone()
+        
+        if account is None:
+            flash('Account not found', 'error')
+            return redirect(url_for('dashboard'))
+        
+        # Get account owner info
+        owner = get_db().execute(
+            'SELECT * FROM users WHERE id = ?',
+            (account['user_id'],)
+        ).fetchone()
+        
+        # Get account transactions
+        transactions = get_db().execute(
+            '''SELECT t.*, 
+                    a1.account_number as from_account, 
+                    a2.account_number as to_account
+            FROM transactions t
+            JOIN accounts a1 ON t.from_account_id = a1.id
+            JOIN accounts a2 ON t.to_account_id = a2.id
+            WHERE t.from_account_id = ? OR t.to_account_id = ?
+            ORDER BY t.transaction_date DESC
+            LIMIT 20''',
+            (account_id, account_id)
+        ).fetchall()
+        
+        # ⚠️ VULNERABLE: Displaying other user's sensitive data!
+        return render_template('account_details.html', 
+                            account=account, 
+                            owner=owner, 
+                            transactions=transactions)
 
     return app

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Account Details{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 30px auto;">
+    <h2 style="color: #333; margin-bottom: 30px;">💳 Account Details</h2>
+
+    <!-- Account Info -->
+    <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 30px;">
+        <h3 style="margin-bottom: 15px;">Account Information</h3>
+        <p><strong>Account Number:</strong> {{ account['account_number'] }}</p>
+        <p><strong>Account Owner:</strong> {{ owner['full_name'] }} ({{ owner['username'] }})</p>
+        <p><strong>Email:</strong> {{ owner['email'] }}</p>
+        <p style="font-size: 32px; font-weight: bold; margin-top: 20px;">
+            Balance: ${{ "%.2f"|format(account['balance']) }}
+        </p>
+        <p style="font-size: 12px; opacity: 0.8;">Account ID: {{ account['id'] }}</p>
+    </div>
+
+    <!-- Transaction History -->
+    <div>
+        <h3 style="color: #333; margin-bottom: 20px;">📊 Transaction History</h3>
+        
+        {% if transactions %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f8f9fa; text-align: left;">
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">Date</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">From</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">To</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">Amount</th>
+                        <th style="padding: 12px; border-bottom: 2px solid #dee2e6;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 12px;">{{ transaction['transaction_date'] }}</td>
+                        <td style="padding: 12px;">{{ transaction['from_account'] }}</td>
+                        <td style="padding: 12px;">{{ transaction['to_account'] }}</td>
+                        <td style="padding: 12px; font-weight: bold;">
+                            ${{ "%.2f"|format(transaction['amount']) }}
+                        </td>
+                        <td style="padding: 12px;">{{ transaction['description'] or 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="color: #666; text-align: center; padding: 40px;">No transactions found.</p>
+        {% endif %}
+    </div>
+
+    <!-- IDOR Vulnerability Warning -->
+    <div style="margin-top: 40px; padding: 20px; background-color: #f8d7da; border: 2px solid #f5c6cb; border-radius: 8px;">
+        <h4 style="color: #721c24; margin-bottom: 15px;">⚠️ IDOR Vulnerability Warning</h4>
+        <p style="color: #721c24; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">
+            This page is <strong>vulnerable to IDOR (Insecure Direct Object Reference)</strong>!
+            Any logged-in user can view ANY account by changing the account ID in the URL.
+        </p>
+        
+        <div style="background-color: #fff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+            <strong style="color: #721c24;">Try these IDOR attacks:</strong>
+            <ul style="margin-top: 10px; color: #721c24; font-size: 13px; line-height: 1.8;">
+                <li><a href="/account/1" style="color: #dc3545;">View Account ID 1</a> (Admin's account)</li>
+                <li><a href="/account/2" style="color: #dc3545;">View Account ID 2</a> (Alice's account)</li>
+                <li><a href="/account/3" style="color: #dc3545;">View Account ID 3</a> (Bob's account)</li>
+                <li><a href="/account/4" style="color: #dc3545;">View Account ID 4</a> (Attacker's account)</li>
+            </ul>
+            
+            <p style="margin-top: 15px; color: #721c24; font-size: 13px;">
+                <strong>How it works:</strong> Change the number in URL:
+                <br>
+                <code style="background-color: #f8f9fa; padding: 5px 10px; border-radius: 3px; display: inline-block; margin-top: 5px;">
+                    http://localhost:5000/account/[CHANGE_THIS_NUMBER]
+                </code>
+            </p>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border-radius: 4px;">
+            <strong style="color: #856404;">Why is this dangerous?</strong>
+            <ul style="margin-top: 8px; color: #856404; font-size: 13px; line-height: 1.6;">
+                <li>Attacker can view other users' balances</li>
+                <li>Access to transaction history of any account</li>
+                <li>Steal sensitive financial information</li>
+                <li>Privacy violation - see personal details</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a 
+            href="{{ url_for('dashboard') }}"
+            style="display: inline-block; padding: 12px 24px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;"
+        >
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

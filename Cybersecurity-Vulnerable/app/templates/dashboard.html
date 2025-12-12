@@ -36,6 +36,12 @@
             <p style="color: #666; font-size: 14px;">Download documents</p>
         </div>
     </a>
+    <a href="{{ url_for('account_details', account_id=account['id']) }}" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <h4 style="color: #333; margin-bottom: 10px;">💳 Account Details</h4>
+            <p style="color: #666; font-size: 14px;">View full information</p>
+        </div>
+    </a>
 </div>
 
 <!-- Transaction History -->
