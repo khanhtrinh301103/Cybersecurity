@@ -28,6 +28,12 @@ This is the **SECURE VERSION** of the banking application. All security vulnerab
 - **Before**: Direct file path construction allowed `../` traversal
 - **After**: Only files in whitelisted directory are accessible
 
+### ✅ 5. IDOR (Insecure Direct Object Reference) Protection
+- **Fixed in**: `app/__init__.py` - Account details route
+- **Protection**: Authorization check to verify account belongs to logged-in user
+- **Before**: Users could view any account by changing account_id in URL
+- **After**: Users can only view their own account; access denied for others
+
 ### ✅ Additional Security Measures
 - Password hashing using `werkzeug.security` (PBKDF2)
 - Input validation and sanitization
@@ -77,6 +83,13 @@ This is the **SECURE VERSION** of the banking application. All security vulnerab
 2. Try accessing: http://localhost:5001/download?file=../schema.sql
 3. **Expected**: Access denied - path traversal blocked
 
+### Test IDOR Protection
+1. Login as admin (account ID 1)
+2. Try accessing: http://localhost:5001/account/2 (Alice's account)
+3. **Expected**: Access denied - "You can only view your own account"
+4. Try accessing: http://localhost:5001/account/1 (your own account)
+5. **Expected**: Account details displayed successfully
+
 ## Port Configuration
 
 - **Secure Version**: Port 5001
@@ -92,6 +105,7 @@ Run both versions simultaneously to compare security implementations.
 | XSS | ❌ Vulnerable | ✅ Protected |
 | CSRF | ❌ Vulnerable | ✅ Protected |
 | Path Traversal | ❌ Vulnerable | ✅ Protected |
+| IDOR | ❌ Vulnerable | ✅ Protected |
 | Password Storage | ❌ Plain text | ✅ Hashed |
 
 ## Notes

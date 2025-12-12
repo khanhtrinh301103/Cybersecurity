@@ -348,4 +348,61 @@ def create_app(test_config=None):
         
         return render_template('statements.html', files=user_files, account=account)
 
+    
+    # Account details route - IDOR PROTECTED
+    @app.route('/account/<int:account_id>')
+    @auth.login_required
+    def account_details(account_id):
+        """
+        View account details
+        
+        ✅ SECURE: IDOR protection implemented
+        - Authorization check to verify account belongs to logged-in user
+        - Returns 403 Forbidden if user tries to access other accounts
+        """
+        from app.db import get_db
+        
+        # ✅ SECURE: First get the account
+        account = get_db().execute(
+            'SELECT * FROM accounts WHERE id = ?',
+            (account_id,)
+        ).fetchone()
+        
+        if account is None:
+            flash('Account not found', 'error')
+            return redirect(url_for('dashboard'))
+        
+        # ✅ SECURE: Authorization check - verify account belongs to logged-in user
+        # This is the key protection against IDOR!
+        if account['user_id'] != g.user['id']:
+            flash('Access denied: You can only view your own account', 'error')
+            return redirect(url_for('dashboard'))
+        
+        # ✅ SECURE: Only proceed if account belongs to current user
+        # Get account owner info (should be current user)
+        owner = get_db().execute(
+            'SELECT * FROM users WHERE id = ?',
+            (account['user_id'],)
+        ).fetchone()
+        
+        # Get account transactions (only for this account)
+        transactions = get_db().execute(
+            '''SELECT t.*, 
+                    a1.account_number as from_account, 
+                    a2.account_number as to_account
+            FROM transactions t
+            JOIN accounts a1 ON t.from_account_id = a1.id
+            JOIN accounts a2 ON t.to_account_id = a2.id
+            WHERE t.from_account_id = ? OR t.to_account_id = ?
+            ORDER BY t.transaction_date DESC
+            LIMIT 20''',
+            (account_id, account_id)
+        ).fetchall()
+        
+        # ✅ SECURE: Display account details (only user's own account)
+        return render_template('account_details.html', 
+                            account=account, 
+                            owner=owner, 
+                            transactions=transactions)
+
     return app
