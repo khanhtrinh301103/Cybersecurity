@@ -700,9 +700,18 @@
           }
         ],
         "description": "Data flow diagram showing user, web app, and database"
+      },
+      {
+        "id": 1,
+        "title": "SQL INJECTION ATTACK THREAT MODEL",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.5.0",
+        "cells": []
       }
     ],
-    "diagramTop": 1,
+    "diagramTop": 2,
     "reviewer": "",
     "threatTop": 5
   }
