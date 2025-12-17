@@ -2624,11 +2624,1039 @@
         "placeholder": "New STRIDE diagram description",
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
         "version": "2.5.0",
-        "cells": []
+        "cells": [
+          {
+            "position": {
+              "x": 840,
+              "y": -10
+            },
+            "size": {
+              "width": 690,
+              "height": 400
+            },
+            "attrs": {
+              "label": {
+                "text": "Banking Application Domain"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "77773cec-3cea-4059-b1eb-182bdbcfddcb",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Banking Application Domain",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 490,
+              "y": 290
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Victim User"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "5b8a5075-badb-4a46-8877-d8ec5ceb3a08"
+                },
+                {
+                  "group": "right",
+                  "id": "f3c5e5e5-d5c8-4d6f-8894-6038c0cf4d3f"
+                },
+                {
+                  "group": "bottom",
+                  "id": "45d2749b-1bc8-4832-83c0-8dca85db24e5"
+                },
+                {
+                  "group": "left",
+                  "id": "adc56313-d73f-4abe-a982-c9565ecf7ac6"
+                }
+              ]
+            },
+            "id": "ea181300-be87-4335-a088-884fb06a3399",
+            "zIndex": 1,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Victim User",
+              "description": "Authenticated user with active session",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 490,
+              "y": 70
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Attacker"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "5b8a5075-badb-4a46-8877-d8ec5ceb3a08"
+                },
+                {
+                  "group": "right",
+                  "id": "f3c5e5e5-d5c8-4d6f-8894-6038c0cf4d3f"
+                },
+                {
+                  "group": "bottom",
+                  "id": "45d2749b-1bc8-4832-83c0-8dca85db24e5"
+                },
+                {
+                  "group": "left",
+                  "id": "adc56313-d73f-4abe-a982-c9565ecf7ac6"
+                }
+              ]
+            },
+            "id": "e72b91a3-d447-4218-90a7-2bec356c97d6",
+            "zIndex": 2,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Attacker",
+              "description": "Malicious actor hosting CSRF attack",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 220,
+              "y": 155
+            },
+            "size": {
+              "width": 140,
+              "height": 130
+            },
+            "attrs": {
+              "text": {
+                "text": "Malicious Website"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "da2f912e-57e5-48b7-b6e1-bfbf15cfdda5"
+                },
+                {
+                  "group": "right",
+                  "id": "ff0621b7-482a-4d9d-baf9-0150d6d8bcaa"
+                },
+                {
+                  "group": "bottom",
+                  "id": "2e5b19eb-3399-4e8c-b94f-69e6542c6857"
+                },
+                {
+                  "group": "left",
+                  "id": "1ca8220b-4139-42b2-981c-0bb075f9dc3b"
+                }
+              ]
+            },
+            "id": "607fe344-ce46-4886-88ce-ce03a3beaa54",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Process",
+              "name": "Malicious Website",
+              "description": "External site hosting csrf_attack.html",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "Low",
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 865,
+              "y": 80
+            },
+            "size": {
+              "width": 300,
+              "height": 300
+            },
+            "attrs": {
+              "text": {
+                "text": "Flask Web Application - Transfer Route"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "da2f912e-57e5-48b7-b6e1-bfbf15cfdda5"
+                },
+                {
+                  "group": "right",
+                  "id": "ff0621b7-482a-4d9d-baf9-0150d6d8bcaa"
+                },
+                {
+                  "group": "bottom",
+                  "id": "2e5b19eb-3399-4e8c-b94f-69e6542c6857"
+                },
+                {
+                  "group": "left",
+                  "id": "1ca8220b-4139-42b2-981c-0bb075f9dc3b"
+                }
+              ]
+            },
+            "id": "de795f34-9b90-4b2e-83b2-31204ae32d09",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Process",
+              "name": "Flask Web Application - Transfer Route",
+              "description": "/transfer endpoint (POST)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "High",
+              "threats": [
+                {
+                  "id": "9979689e-5e9f-46d6-9229-5ae25b5f2d76",
+                  "title": "Missing CSRF Protection",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "The /transfer endpoint does not validate CSRF tokens, making it \nvulnerable to cross-origin request forgery attacks.",
+                  "mitigation": "- Implement Flask-WTF with CSRF protection\n- Generate unique tokens per session\n- Validate tokens on all state-changing operations",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 16,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1390,
+              "y": 190
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "feec98df-c221-47b3-84aa-c8ac66450bdd"
+                },
+                {
+                  "group": "right",
+                  "id": "f983cec2-bc0c-4fee-9d66-b3189032083d"
+                },
+                {
+                  "group": "bottom",
+                  "id": "f1108c1c-0244-4357-9a96-f14348fdde91"
+                },
+                {
+                  "group": "left",
+                  "id": "3bb1aba0-761d-4e13-8e46-2fc2c29f984f"
+                }
+              ]
+            },
+            "id": "35d3e0ba-0f06-47c5-b598-59ec8849642c",
+            "zIndex": 5,
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite Database",
+              "description": "Contains accounts and transactions tables",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP POST (Login)",
+              "description": "User authenticates and receives session cookie",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": []
+            },
+            "labels": [
+              "HTTP POST (Login)"
+            ],
+            "id": "46693bc1-8bf3-4901-b08f-32f57435b41f",
+            "source": {
+              "cell": "ea181300-be87-4335-a088-884fb06a3399",
+              "port": "f3c5e5e5-d5c8-4d6f-8894-6038c0cf4d3f"
+            },
+            "target": {
+              "cell": "de795f34-9b90-4b2e-83b2-31204ae32d09",
+              "port": "1ca8220b-4139-42b2-981c-0bb075f9dc3b"
+            },
+            "vertices": [
+              {
+                "x": 720,
+                "y": 230
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP GET (Visit Site)",
+              "description": "User visits attacker's website",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "HTTP GET (Visit Site)"
+            ],
+            "id": "13630d47-b07d-45e5-819b-db266c0f2e0c",
+            "source": {
+              "cell": "ea181300-be87-4335-a088-884fb06a3399",
+              "port": "adc56313-d73f-4abe-a982-c9565ecf7ac6"
+            },
+            "target": {
+              "cell": "607fe344-ce46-4886-88ce-ce03a3beaa54",
+              "port": "2e5b19eb-3399-4e8c-b94f-69e6542c6857"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Malicious HTML Page",
+              "description": "Page contains form targeting /transfer endpoint",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Malicious HTML Page"
+            ],
+            "id": "b54c40a7-95a7-4bfc-975d-e532c5e3d736",
+            "source": {
+              "cell": "607fe344-ce46-4886-88ce-ce03a3beaa54",
+              "port": "ff0621b7-482a-4d9d-baf9-0150d6d8bcaa"
+            },
+            "target": {
+              "cell": "ea181300-be87-4335-a088-884fb06a3399",
+              "port": "5b8a5075-badb-4a46-8877-d8ec5ceb3a08"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP POST (CSRF Attack)",
+              "description": "CROSS-ORIGIN REQUEST with valid session cookie",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "This is the CSRF vulnerability",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": [
+                {
+                  "id": "a41e6e6a-83f7-449c-b831-c23bda3d456e",
+                  "title": "Cross-Site Request Forgery (CSRF) in Money Transfer",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "",
+                  "description": "Description: \nAttacker tricks authenticated user into making unauthorized money \ntransfers by exploiting browser's automatic cookie inclusion in \ncross-origin requests. The /transfer endpoint does not validate \nCSRF tokens, allowing malicious websites to forge requests.\n\nAttack Scenario:\n1. Victim logs into banking app (session cookie stored)\n2. Victim visits attacker's malicious website\n3. Malicious page auto-submits hidden form to /transfer\n4. Browser automatically includes session cookie\n5. Flask accepts request as legitimate (valid session)\n6. Money transferred without user's consent",
+                  "mitigation": "Mitigation:\n- Implement CSRF tokens (Synchronizer Token Pattern)\n- Set SameSite cookie attribute (SameSite=Strict or Lax)\n- Validate Referer/Origin headers\n- Use double-submit cookie pattern\n- Require re-authentication for sensitive operations",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 17,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "HTTP POST (CSRF Attack)"
+            ],
+            "id": "9be9f830-18ed-4be0-bdb4-5a0abfb15e48",
+            "source": {
+              "cell": "ea181300-be87-4335-a088-884fb06a3399",
+              "port": "f3c5e5e5-d5c8-4d6f-8894-6038c0cf4d3f"
+            },
+            "target": {
+              "cell": "de795f34-9b90-4b2e-83b2-31204ae32d09",
+              "port": "1ca8220b-4139-42b2-981c-0bb075f9dc3b"
+            },
+            "vertices": [
+              {
+                "x": 750,
+                "y": 320
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "SQL Operations",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "SQL Operations"
+            ],
+            "id": "add0f1bf-37fc-4f5b-92d1-221e97c895ff",
+            "source": {
+              "cell": "de795f34-9b90-4b2e-83b2-31204ae32d09",
+              "port": "ff0621b7-482a-4d9d-baf9-0150d6d8bcaa"
+            },
+            "target": {
+              "cell": "35d3e0ba-0f06-47c5-b598-59ec8849642c",
+              "port": "3bb1aba0-761d-4e13-8e46-2fc2c29f984f"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response",
+              "description": "Transfer completed without user knowledge",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response"
+            ],
+            "id": "34c2ddcd-ac9d-4011-81f6-aed1c284fcad",
+            "source": {
+              "cell": "de795f34-9b90-4b2e-83b2-31204ae32d09",
+              "port": "2e5b19eb-3399-4e8c-b94f-69e6542c6857"
+            },
+            "target": {
+              "cell": "ea181300-be87-4335-a088-884fb06a3399",
+              "port": "45d2749b-1bc8-4832-83c0-8dca85db24e5"
+            },
+            "vertices": [
+              {
+                "x": 770,
+                "y": 380
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Setup Malicious Site",
+              "description": "Attacker creates and hosts malicious website with CSRF exploit",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": []
+            },
+            "labels": [
+              "Setup Malicious Site"
+            ],
+            "id": "75db752b-f3a0-4f4c-bdda-4e6b00378559",
+            "source": {
+              "cell": "e72b91a3-d447-4218-90a7-2bec356c97d6",
+              "port": "adc56313-d73f-4abe-a982-c9565ecf7ac6"
+            },
+            "target": {
+              "cell": "607fe344-ce46-4886-88ce-ce03a3beaa54",
+              "port": "da2f912e-57e5-48b7-b6e1-bfbf15cfdda5"
+            },
+            "vertices": []
+          },
+          {
+            "position": {
+              "x": 840,
+              "y": 390
+            },
+            "size": {
+              "width": 460,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "CRITICAL VULNERABILITY:\nThe /transfer endpoint accepts requests without CSRF token validation.\nBrowser automatically includes session cookies in cross-origin requests,\nallowing attackers to forge legitimate-looking requests."
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "fabfffc4-b6ed-4c9a-8f12-88cbbe0558a5",
+            "zIndex": 11,
+            "data": {
+              "type": "tm.Text",
+              "name": "CRITICAL VULNERABILITY:\nThe /transfer endpoint accepts requests without CSRF token validation.\nBrowser automatically includes session cookies in cross-origin requests,\nallowing attackers to forge legitimate-looking requests.",
+              "hasOpenThreats": false
+            }
+          }
+        ]
       }
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 13
+    "threatTop": 17
   }
 }
