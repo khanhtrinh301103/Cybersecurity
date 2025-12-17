@@ -737,8 +737,8 @@
           },
           {
             "position": {
-              "x": 340,
-              "y": 50.00000000000006
+              "x": 330,
+              "y": 25
             },
             "size": {
               "width": 120,
@@ -854,8 +854,8 @@
           },
           {
             "position": {
-              "x": 200,
-              "y": 150
+              "x": 300,
+              "y": 345
             },
             "size": {
               "width": 160,
@@ -1317,7 +1317,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -1338,12 +1339,31 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "509c88ca-e968-4ec0-8b1a-d5b96507fc14",
+                  "title": "Malicious Payload Injection via POST Request",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "ATTACK VECTOR:\nAttacker crafts malicious HTTP POST request with SQL injection payload embedded in the username field.\n\nPAYLOAD DETAILS:\n- Field: username\n- Malicious Input: admin' OR '1'='1\n- Normal Input Expected: alphanumeric username\n- Attack Type: SQL Injection via input tampering\n\nREQUEST STRUCTURE:\nPOST /auth/login HTTP/1.1\nHost: bank.example.com\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin' OR '1'='1&password=anything\n\nTAMPERING METHOD:\nAttacker tampers with legitimate login request by injecting SQL syntax characters (' OR) that will be interpreted as SQL code instead of data.\n\nTHREAT:\nThe application does not distinguish between user data and SQL commands, allowing attacker to modify the application's SQL query logic.",
+                  "mitigation": "INPUT LAYER PROTECTION:\n\n1. Input Validation (Client & Server Side):\n   - Whitelist: Allow only [a-zA-Z0-9_] characters\n   - Length limit: 3-50 characters\n   - Reject special SQL characters: ' \" ; -- /* */ \n\n2. Web Application Firewall (WAF):\n   - Deploy ModSecurity or cloud WAF (Cloudflare, AWS WAF)\n   - Enable OWASP Core Rule Set (CRS)\n   - Block SQL injection patterns\n   - Rate limiting per IP\n\n3. Content Security Policy:\n   - Validate Content-Type header\n   - Reject unexpected content types\n   - Check request origin\n\n4. Request Sanitization:\n   from html import escape\n   username = escape(username)\n   # Converts ' to &apos; preventing SQL injection\n\n5. Logging & Monitoring:\n   - Log all login attempts with full payload\n   - Alert on SQL keywords in input: SELECT, OR, AND, DROP, UNION\n   - Integrate with SIEM (Security Information and Event Management)\n   - Set up anomaly detection\n\n6. HTTPS Enforcement:\n   - Force HTTPS to prevent MITM tampering\n   - HSTS header: Strict-Transport-Security: max-age=31536000\n\n7. CSRF Protection:\n   - Implement CSRF tokens\n   - Validate tokens on every POST request",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
             },
             "labels": [
               "Malicious SQL Injection Payload"
@@ -1361,6 +1381,10 @@
               {
                 "x": 540,
                 "y": 140
+              },
+              {
+                "x": 570,
+                "y": 160
               },
               {
                 "x": 590,
@@ -1414,8 +1438,8 @@
             },
             "vertices": [
               {
-                "x": 1180,
-                "y": 260
+                "x": 1170,
+                "y": 300
               }
             ]
           },
@@ -1510,12 +1534,60 @@
               "port": "26b6ab31-e752-4a97-883a-91be2433584d"
             },
             "vertices": []
+          },
+          {
+            "position": {
+              "x": 760,
+              "y": -230
+            },
+            "size": {
+              "width": 480,
+              "height": 210
+            },
+            "attrs": {
+              "text": {
+                "text": "SQL INJECTION ATTACK FLOW - BANKING APPLICATION\n\nATTACK SCENARIO:\n1. Attacker accesses login page at /auth/login\n2. Attacker inputs malicious payload: Username = admin' OR '1'='1\n3. Flask app constructs vulnerable SQL query using string concatenation\n4. Database executes injected query, returns admin user record\n5. Attacker receives authenticated session with admin privileges\n6. Attacker gains unauthorized access to banking system\n\nSEVERITY: HIGH | CVSS Score: 9.8 (Critical)\nSTRIDE: Tampering, Information Disclosure, Elevation of Privilege"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "5e9d8330-6327-4540-b327-7e053af48c79",
+            "zIndex": 11,
+            "data": {
+              "type": "tm.Text",
+              "name": "SQL INJECTION ATTACK FLOW - BANKING APPLICATION\n\nATTACK SCENARIO:\n1. Attacker accesses login page at /auth/login\n2. Attacker inputs malicious payload: Username = admin' OR '1'='1\n3. Flask app constructs vulnerable SQL query using string concatenation\n4. Database executes injected query, returns admin user record\n5. Attacker receives authenticated session with admin privileges\n6. Attacker gains unauthorized access to banking system\n\nSEVERITY: HIGH | CVSS Score: 9.8 (Critical)\nSTRIDE: Tampering, Information Disclosure, Elevation of Privilege",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 1499.999999999999,
+              "y": 85
+            },
+            "size": {
+              "width": 330,
+              "height": 340
+            },
+            "attrs": {
+              "text": {
+                "text": "IMPACT ANALYSIS:\n\nConfidentiality: HIGH\n- Access to all customer PII\n- View account balances\n- Access transaction history\n\nIntegrity: HIGH  \n- Modify account balances\n- Create fraudulent transactions\n- Alter audit logs\n\nAvailability: MEDIUM\n- Potential for account lockouts\n- Database manipulation\n- Service disruption\n\nFinancial Impact:\n- Direct theft via unauthorized transfers\n- Regulatory fines (GDPR, PCI-DSS)\n- Reputation damage\n- Legal liability"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "d1bb5030-be33-4151-bf5e-f826358dcd5c",
+            "zIndex": 12,
+            "data": {
+              "type": "tm.Text",
+              "name": "IMPACT ANALYSIS:\n\nConfidentiality: HIGH\n- Access to all customer PII\n- View account balances\n- Access transaction history\n\nIntegrity: HIGH  \n- Modify account balances\n- Create fraudulent transactions\n- Alter audit logs\n\nAvailability: MEDIUM\n- Potential for account lockouts\n- Database manipulation\n- Service disruption\n\nFinancial Impact:\n- Direct theft via unauthorized transfers\n- Regulatory fines (GDPR, PCI-DSS)\n- Reputation damage\n- Legal liability",
+              "hasOpenThreats": false
+            }
           }
         ]
       }
     ],
     "diagramTop": 2,
     "reviewer": "",
-    "threatTop": 7
+    "threatTop": 8
   }
 }
