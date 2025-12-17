@@ -711,11 +711,37 @@
         "cells": [
           {
             "position": {
-              "x": 360,
-              "y": 170
+              "x": 520,
+              "y": 10
             },
             "size": {
-              "width": 112.5,
+              "width": 960,
+              "height": 490
+            },
+            "attrs": {
+              "label": {
+                "text": "HTTPS Trust Boundary"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "be7d7002-d3b5-4b9e-83c3-eef1a49a0881",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "HTTPS Trust Boundary",
+              "description": "Security boundary between external browsers and internal application infrastructure",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 340,
+              "y": 50.00000000000006
+            },
+            "size": {
+              "width": 120,
               "height": 60
             },
             "attrs": {
@@ -817,7 +843,7 @@
             "data": {
               "type": "tm.Actor",
               "name": "Attacker",
-              "description": "Malicious external user attempting SQL injection attack",
+              "description": "Malicious external user attempting SQL injection attack to bypass authentication",
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -828,12 +854,12 @@
           },
           {
             "position": {
-              "x": 647,
-              "y": 110
+              "x": 200,
+              "y": 150
             },
             "size": {
-              "width": 112.5,
-              "height": 60
+              "width": 160,
+              "height": 80
             },
             "attrs": {
               "text": {
@@ -934,7 +960,7 @@
             "data": {
               "type": "tm.Actor",
               "name": "Bank Customer Browser",
-              "description": "Legitimate user's browser interface",
+              "description": "Legitimate user's browser interface for accessing banking application",
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -945,20 +971,20 @@
           },
           {
             "position": {
-              "x": 589.5,
-              "y": 230
+              "x": 717,
+              "y": 110.00000000000006
             },
             "size": {
-              "width": 170,
-              "height": 160
+              "width": 260,
+              "height": 250
             },
             "attrs": {
               "text": {
-                "text": "Flask Web Application\nLogin Route (/auth/login)"
+                "text": "Flask Web Application - Login Route"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1046,28 +1072,450 @@
                 }
               ]
             },
-            "id": "e12ced2a-64fe-4cd9-9ecc-47b2c2acf527",
+            "id": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
             "zIndex": 3,
             "data": {
               "type": "tm.Process",
-              "name": "Flask Web Application\nLogin Route (/auth/login)",
-              "description": "Web application endpoint handling login authentication",
+              "name": "Flask Web Application - Login Route",
+              "description": "Web application endpoint handling login authentication at /auth/login\n   \n   VULNERABLE: Uses string concatenation to build SQL queries instead of parameterized queries\n   \n   Code: query = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "c6e37d04-3080-41ce-9d19-088f25b8df7d",
+                  "title": "Insufficient Input Validation and Sanitization",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "VULNERABILITY:\nThe login endpoint does not validate or sanitize user inputs before using them in SQL queries.\n\nMISSING CONTROLS:\n- No input length validation\n- No character whitelisting\n- No SQL keyword blacklisting\n- No encoding of special characters\n- No prepared statements\n\nATTACK SURFACE:\n- Username field accepts any characters including SQL syntax\n- Password field similarly vulnerable\n- No CSRF token validation\n- No captcha for brute force prevention\n\nEXPLOITABLE BY:\n- SQL Injection (current threat)\n- XSS via stored username\n- Authentication bypass\n- Brute force attacks",
+                  "mitigation": "INPUT VALIDATION:\n1. Whitelist Validation:\n   import re\n   if not re.match(r'^[a-zA-Z0-9_]{3,50}$', username):\n       return \"Invalid username format\"\n\n2. Length Limits:\n   - Username: 3-50 characters\n   - Password: 8-128 characters\n\n3. Character Encoding:\n   from html import escape\n   username = escape(username)\n\n4. SQL Keyword Detection:\n   sql_keywords = ['SELECT', 'DROP', 'INSERT', 'DELETE', 'UPDATE', 'UNION', 'OR', 'AND']\n   if any(keyword in username.upper() for keyword in sql_keywords):\n       return \"Invalid input detected\"\n\nADDITIONAL CONTROLS:\n5. CSRF Protection:\n   - Implement CSRF tokens\n   - Validate token on every POST request\n\n6. Rate Limiting:\n   from flask_limiter import Limiter\n   @limiter.limit(\"5 per minute\")\n   def login():\n       ...\n\n7. Captcha:\n   - Add reCAPTCHA after 3 failed attempts\n   - Prevent automated attacks",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1309,
+              "y": 210
+            },
+            "size": {
+              "width": 120,
+              "height": 50
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "0197d456-7449-40c9-a0d2-890946c3349f"
+                },
+                {
+                  "group": "right",
+                  "id": "803cbeed-f195-4eee-ad1d-2a95240a6427"
+                },
+                {
+                  "group": "bottom",
+                  "id": "3cff3394-4e42-43bf-ab2f-28d3736a7c08"
+                },
+                {
+                  "group": "left",
+                  "id": "86b4c50d-05f0-4aeb-816b-a44c5fec5500"
+                }
+              ]
+            },
+            "id": "4195aa25-fc53-4c2a-bfd7-1f56e2cb628f",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite Database",
+              "description": "Database storing user credentials and account information\n   \n   Table: users\n   Columns: user_id, username, password_hash, email, account_balance",
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
-              "handlesCardPayment": false,
-              "handlesGoodsOrServices": false,
-              "isWebApplication": false,
-              "privilegeLevel": "",
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
               "threats": []
-            }
+            },
+            "children": [
+              "e9de625f-ba82-438f-9e73-20548068b23d"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Vulnerable SQL Query (String Concatenation)",
+              "description": "VULNERABILITY LOCATION\n   \n   SQL query constructed using dangerous string concatenation\n   \n   Vulnerable Code:\n   query = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"\n   \n   When Attacker inputs username: admin' OR '1'='1\n   The query becomes:\n   SELECT * FROM users WHERE username='admin' OR '1'='1' AND password='anything'\n   \n   Result: '1'='1' is always TRUE, bypassing authentication\n   \n   Protocol: SQL\n   Encrypted: NO (internal communication)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "817c4333-0d0e-40ab-abf0-b4d8a8ac88b0",
+                  "title": "SQL Injection in Login Authentication - Bypassing Password Check",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "VULNERABILITY DESCRIPTION:\nThe login endpoint constructs SQL queries using string concatenation instead of parameterized queries, allowing attackers to inject malicious SQL code.\n\nATTACK VECTOR:\nAttacker submits specially crafted input in the username field:\nUsername: admin' OR '1'='1\nPassword: anything\n\nVULNERABLE CODE:\nquery = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"\n\nRESULTING QUERY:\nSELECT * FROM users WHERE username='admin' OR '1'='1' AND password='anything'\n\nEXPLOITATION:\n- The injected OR '1'='1' makes the WHERE clause always evaluate to TRUE\n- Password check is bypassed\n- Database returns admin user record\n- Application grants authenticated session to attacker\n\nIMPACT:\n- Complete authentication bypass\n- Unauthorized admin access\n- Access to all customer accounts\n- Ability to transfer funds\n- Access to sensitive PII data\n- Potential for privilege escalation",
+                  "mitigation": "IMMEDIATE FIXES:\n1. Use Parameterized Queries (Prepared Statements):\n   cursor.execute(\n       \"SELECT * FROM users WHERE username=? AND password=?\", \n       (username, hash_password(password))\n   )\n\n2. Use ORM Framework:\n   user = User.query.filter_by(username=username).first()\n   if user and check_password_hash(user.password, password):\n       login_user(user)\n\n3. Input Validation:\n   - Whitelist allowed characters (alphanumeric + limited special chars)\n   - Reject SQL keywords: SELECT, OR, AND, DROP, etc.\n   - Limit input length: username max 50 chars\n\nADDITIONAL SECURITY LAYERS:\n4. Web Application Firewall (WAF):\n   - Deploy ModSecurity or cloud WAF\n   - Block common SQL injection patterns\n\n5. Rate Limiting:\n   - Max 5 login attempts per IP per minute\n   - Account lockout after 10 failed attempts\n\n6. Database Security:\n   - Apply principle of least privilege\n   - Use read-only user for SELECT queries\n   - Separate user for INSERT/UPDATE/DELETE\n\n7. Monitoring & Logging:\n   - Log all authentication attempts\n   - Alert on suspicious patterns (SQL keywords in input)\n   - Implement SIEM integration\n\n8. Code Review:\n   - Security code review before deployment\n   - Static analysis tools (Bandit, SonarQube)\n   - Regular penetration testing",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "Vulnerable SQL Query (String Concatenation)"
+            ],
+            "id": "aeb8b14e-36cc-42c2-9ed8-4d4ef1875475",
+            "source": {
+              "cell": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
+              "port": "3952c5eb-a031-45cf-8c52-dfb7358dd5a5"
+            },
+            "target": {
+              "cell": "4195aa25-fc53-4c2a-bfd7-1f56e2cb628f",
+              "port": "86b4c50d-05f0-4aeb-816b-a44c5fec5500"
+            },
+            "vertices": [
+              {
+                "x": 1110,
+                "y": 195
+              },
+              {
+                "x": 1150,
+                "y": 195
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Malicious SQL Injection Payload",
+              "description": "HTTP POST request containing SQL injection payload\n   \n   Payload Details:\n   - Username: admin' OR '1'='1\n   - Password: anything\n   - Content-Type: application/x-www-form-urlencoded\n   \n   The payload exploits string concatenation vulnerability in SQL query construction",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Malicious SQL Injection Payload"
+            ],
+            "id": "540aa1ac-0f4a-4e96-aa7f-73f27b96e940",
+            "source": {
+              "cell": "ac0a552a-84d4-4657-bb64-8ec10af73ed0",
+              "port": "26b6ab31-e752-4a97-883a-91be2433584d"
+            },
+            "target": {
+              "cell": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
+              "port": "8dcaf22d-70d0-43f5-adad-49541a9c7c97"
+            },
+            "vertices": [
+              {
+                "x": 540,
+                "y": 140
+              },
+              {
+                "x": 590,
+                "y": 175
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query Results (User Record)",
+              "description": "Database returns user record to application\n   \n   Returned Data:\n   - user_id: 1\n   - username: admin\n   - email: admin@bank.com\n   - account_type: administrator\n   \n   Due to SQL injection, database returns admin record even with wrong password",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Query Results (User Record)"
+            ],
+            "id": "2d518d58-060c-49d0-8665-3318a85ff2ba",
+            "source": {
+              "cell": "4195aa25-fc53-4c2a-bfd7-1f56e2cb628f",
+              "port": "3cff3394-4e42-43bf-ab2f-28d3736a7c08"
+            },
+            "target": {
+              "cell": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
+              "port": "3952c5eb-a031-45cf-8c52-dfb7358dd5a5"
+            },
+            "vertices": [
+              {
+                "x": 1180,
+                "y": 260
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response - Unauthorized Access Granted",
+              "description": "Application grants authenticated session to attacker\n   \n   Response Details:\n   - Status: 302 Found (Redirect)\n   - Location: /dashboard\n   - Set-Cookie: session=eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIn0...\n   - Body: Redirecting to admin dashboard\n   \n   IMPACT: Attacker now has full admin access to banking system",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response - Unauthorized Access Granted"
+            ],
+            "id": "1a866ff4-0182-4112-a14e-d33ff69e3d09",
+            "source": {
+              "cell": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
+              "port": "09c79237-1bfa-4aca-94bf-11511a356e3a"
+            },
+            "target": {
+              "cell": "ac0a552a-84d4-4657-bb64-8ec10af73ed0",
+              "port": "26b6ab31-e752-4a97-883a-91be2433584d"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response - Legitimate Login",
+              "description": "Normal successful authentication response for legitimate users\nResponse: 302 redirect to /dashboard with session cookie",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response - Legitimate Login"
+            ],
+            "id": "92735b87-2233-436b-900a-b46f5c508bcc",
+            "source": {
+              "cell": "b8530cee-4bd5-402e-913a-c34ded2e31d1",
+              "port": "8dcaf22d-70d0-43f5-adad-49541a9c7c97"
+            },
+            "target": {
+              "cell": "dedcf4c0-3e7c-4492-9451-5db79c8f8803",
+              "port": "26b6ab31-e752-4a97-883a-91be2433584d"
+            },
+            "vertices": []
           }
         ]
       }
     ],
     "diagramTop": 2,
     "reviewer": "",
-    "threatTop": 5
+    "threatTop": 7
   }
 }
