@@ -2439,9 +2439,101 @@
             ]
           },
           {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Login",
+              "description": "password, email",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Login"
+            ],
+            "id": "4ab84bff-b93a-4544-a64a-7ab5fd2ae848",
+            "source": {
+              "cell": "36c861e5-07a0-451f-997b-8a649f8c5033",
+              "port": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+            },
+            "target": {
+              "cell": "d7b9ecb6-c4a5-4912-979b-d30ced5e1a85",
+              "port": "ccd80b7e-b74b-4742-81c5-9177ae30a345"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "check user data",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "check user data"
+            ],
+            "id": "8bb7bac9-6f2b-47a3-89e7-2a163dcb9f1b",
+            "source": {
+              "cell": "d7b9ecb6-c4a5-4912-979b-d30ced5e1a85",
+              "port": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "ccd80b7e-b74b-4742-81c5-9177ae30a345"
+            },
+            "vertices": []
+          },
+          {
             "position": {
-              "x": 39.999999999999545,
-              "y": 200.00000000000074
+              "x": 291.25,
+              "y": -180
             },
             "size": {
               "width": 310,
@@ -2449,7 +2541,7 @@
             },
             "attrs": {
               "text": {
-                "text": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns Alice's data\n  6. Attacker views Alice's balance: $5,000\n  7. Repeat for /account/3, /account/4..."
+                "text": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns account's data\n  6. Attacker views account's balance: $5,000\n  7. Repeat for /account/3, /account/4..."
               }
             },
             "visible": true,
@@ -2458,7 +2550,55 @@
             "zIndex": 11,
             "data": {
               "type": "tm.Text",
-              "name": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns Alice's data\n  6. Attacker views Alice's balance: $5,000\n  7. Repeat for /account/3, /account/4...",
+              "name": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns account's data\n  6. Attacker views account's balance: $5,000\n  7. Repeat for /account/3, /account/4...",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 911.25,
+              "y": 340.0000000000001
+            },
+            "size": {
+              "width": 330,
+              "height": 190
+            },
+            "attrs": {
+              "text": {
+                "text": "⚠️ MISSING AUTHORIZATION:\n  \n  Vulnerable Code:\n  @app.route('/account/<int:account_id>')\n  def account_details(account_id):\n      account = Account.query.get(account_id)\n      # ❌ NO CHECK: Does account belong to user?\n      return render_template('account.html', account=account)\n  \n  Secure Code:\n  if account.user_id != session['user_id']:\n      abort(403)"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "194fe41c-5411-4f6c-acd6-f57a39dc2639",
+            "zIndex": 12,
+            "data": {
+              "type": "tm.Text",
+              "name": "⚠️ MISSING AUTHORIZATION:\n  \n  Vulnerable Code:\n  @app.route('/account/<int:account_id>')\n  def account_details(account_id):\n      account = Account.query.get(account_id)\n      # ❌ NO CHECK: Does account belong to user?\n      return render_template('account.html', account=account)\n  \n  Secure Code:\n  if account.user_id != session['user_id']:\n      abort(403)",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 430,
+              "y": 410
+            },
+            "size": {
+              "width": 270,
+              "height": 150
+            },
+            "attrs": {
+              "text": {
+                "text": "📊 IMPACT:\n  \n  - Complete account enumeration\n  - Access to all customer financial data\n  - Privacy violation (GDPR/PCI-DSS)\n  - Horizontal privilege escalation"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "7c6423a1-f49e-4b5b-9266-ee20f6efa6ef",
+            "zIndex": 13,
+            "data": {
+              "type": "tm.Text",
+              "name": "📊 IMPACT:\n  \n  - Complete account enumeration\n  - Access to all customer financial data\n  - Privacy violation (GDPR/PCI-DSS)\n  - Horizontal privilege escalation",
               "hasOpenThreats": false
             }
           }
