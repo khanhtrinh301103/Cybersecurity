@@ -45,12 +45,12 @@
           },
           {
             "position": {
-              "x": 790,
-              "y": -95
+              "x": 791.2499999999995,
+              "y": -94.99999999999852
             },
             "size": {
-              "width": 1320,
-              "height": 550
+              "width": 770,
+              "height": 620
             },
             "attrs": {
               "label": {
@@ -200,8 +200,8 @@
                 "text": "Flask Web Application - Download Route"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -298,12 +298,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "4bdd71ec-6d76-4501-9dbf-9527f70970ce",
+                  "title": "Insecure File Download Implementation",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "The /download endpoint implements file downloads without proper \npath validation, directory restrictions, or access controls.\n\nVulnerabilities:\n1. No path normalization\n2. No whitelist validation\n3. No absolute path verification\n4. No file extension checking\n5. No access control verification\n\nAttack Surface:\n- Any authenticated user can exploit\n- No rate limiting on download endpoint\n- Error messages may leak directory structure\n\nBusiness Impact:\n- Loss of intellectual property (source code)\n- Credential compromise\n- Compliance violations (data breach)\n- Potential for complete system compromise",
+                  "mitigation": "1. Implement secure path handling (use safe_join)\n2. Whitelist allowed files or patterns\n3. Add access control checks\n4. Log all download attempts\n5. Implement rate limiting\n6. Use indirect reference map (filename → UUID mapping)",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "7.5"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -574,52 +596,6 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "HTTP GET (Path Traversal)",
-              "description": "Protocol: HTTP\n  Data: \"file=../app/schema.sql\"\n  URL: \"http://localhost:5000/download?file=../app/schema.sql\"\n  Description: \"Attacker sends request with path traversal payload\"\n  \n  Attack Payload Examples:\n  - ../app/schema.sql\n  - ../app/auth.py\n  - ../app/__init__.py\n  - ../../etc/passwd\n  - ../../../windows/system32/config/sam",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": []
-            },
-            "labels": [
-              "HTTP GET (Path Traversal)"
-            ],
-            "id": "85e4dd14-37fc-4e38-bb1b-ba6e03039836",
-            "source": {
-              "cell": "836ccc15-4637-4bcf-b3f5-ce79433d6ee7",
-              "port": "545d63d4-cb6c-4a73-82fb-d0df7abfa442"
-            },
-            "target": {
-              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
-              "port": "1d36fe06-83f8-4c97-929c-39e5d0008de0"
-            },
-            "vertices": []
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
               "name": "Vulnerable Path Construction",
               "description": "Data: \"os.path.join(instance_path, '../app/schema.sql')\"\n  Description: \"Path constructed without validation\"\n  \n  Vulnerable Code:\n  filepath = os.path.join(app.instance_path, filename)\n  # Result: instance/../app/schema.sql → app/schema.sql\n  \n  ⚠️ NO VALIDATION:\n  - No path normalization\n  - No whitelist check\n  - No absolute path verification",
               "outOfScope": false,
@@ -659,7 +635,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -680,12 +657,31 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "394c7d45-4a6c-4782-be60-5a46c028072e",
+                  "title": "Unauthorized File System Access",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "Application accesses files outside the intended directory due to \nlack of path validation, allowing authenticated users to read \narbitrary files within application's file system permissions.\n\nTechnical Details:\nVulnerable Code:\n@app.route('/download')\ndef download():\n    filename = request.args.get('file')\n    filepath = os.path.join(app.instance_path, filename)  # VULNERABLE!\n    return send_file(filepath, as_attachment=True)\n\nProblem:\nos.path.join() does NOT prevent path traversal:\n- os.path.join('/instance', '../app/file.py') → '/app/file.py'\n- Absolute paths in second argument override first argument\n- No validation of final resolved path\n\nExploitation:\n1. Normal use: /download?file=statement.pdf → instance/statements/statement.pdf ✅\n2. Attack: /download?file=../app/schema.sql → app/schema.sql 🔴",
+                  "mitigation": "Use secure path handling:\nfrom werkzeug.security import safe_join\n\n@app.route('/download')\ndef download():\n    filename = request.args.get('file')\n    safe_path = safe_join(app.instance_path, filename)\n    if safe_path is None:\n        abort(400, \"Invalid file path\")\n    return send_file(safe_path, as_attachment=True)",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             },
             "labels": [
               "File System Access (Unauthorized)"
@@ -701,7 +697,7 @@
             },
             "vertices": [
               {
-                "x": 1430,
+                "x": 1420,
                 "y": 110
               }
             ]
@@ -802,12 +798,220 @@
               "port": "6568a069-fda0-43af-ad68-523780faa50e"
             },
             "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Direct Database Access (Escalation)",
+              "description": "Protocol: SQLite\n  Data: \"Direct connection using stolen credentials\"\n  Description: \"Attacker bypasses application and accesses DB directly\"\n  Impact: \"Full data exfiltration\"",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Direct Database Access (Escalation)"
+            ],
+            "id": "956db8e3-3543-4d17-a8c8-ec6ac07a7591",
+            "source": {
+              "cell": "836ccc15-4637-4bcf-b3f5-ce79433d6ee7",
+              "port": "6568a069-fda0-43af-ad68-523780faa50e"
+            },
+            "target": {
+              "cell": "b487134d-f2df-4058-b8e1-04488737bc53",
+              "port": "dcc75be5-ab6d-47a5-b839-07296b50731a"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP GET (Path Traversal)",
+              "description": "Protocol: HTTP\n  Data: \"file=../app/schema.sql\"\n  URL: \"http://localhost:5000/download?file=../app/schema.sql\"\n  Description: \"Attacker sends request with path traversal payload\"\n  \n  Attack Payload Examples:\n  - ../app/schema.sql\n  - ../app/auth.py\n  - ../app/__init__.py\n  - ../../etc/passwd\n  - ../../../windows/system32/config/sam",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "a1fa21a5-3a7e-4f82-8aba-8aed231479b2",
+                  "title": "Path Traversal via File Parameter",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Attacker manipulates the 'file' query parameter with path traversal \nsequences (../) to escape the intended directory (instance/statements/) \nand access sensitive files including source code, configuration files, \nand system files.\n\nAttack Vector:\nGET /download?file=../app/schema.sql\nGET /download?file=../app/__init__.py\nGET /download?file=../../etc/passwd\n\nImpact:\n- Exposure of database schema\n- Source code disclosure\n- Credential theft (DB passwords, API keys)\n- System file access\n- Potential for privilege escalation\n\nAffected Asset:\n- Flask Download Route (/download endpoint)\n- File System (app/, config/, system directories)",
+                  "mitigation": "1. Path Normalization:\n   - Use os.path.realpath() to resolve paths\n   - Check if resolved path starts with allowed directory\n   \n2. Whitelist Validation:\n   - Maintain list of allowed filenames\n   - Only serve files from whitelist\n   \n3. Absolute Path Checking:\n   allowed_dir = os.path.realpath(app.instance_path)\n   file_path = os.path.realpath(os.path.join(allowed_dir, filename))\n   if not file_path.startswith(allowed_dir):\n       abort(403)\n   \n4. Input Sanitization:\n   - Remove or reject ../ sequences\n   - Validate filename format\n   \n5. Principle of Least Privilege:\n   - Run application with minimal file system permissions",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "HTTP GET (Path Traversal)"
+            ],
+            "id": "3c13fb33-3b7d-45f8-9c70-22b20acfc851",
+            "source": {
+              "cell": "836ccc15-4637-4bcf-b3f5-ce79433d6ee7",
+              "port": "545d63d4-cb6c-4a73-82fb-d0df7abfa442"
+            },
+            "target": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "1d36fe06-83f8-4c97-929c-39e5d0008de0"
+            },
+            "vertices": []
+          },
+          {
+            "position": {
+              "x": 531.25,
+              "y": -160
+            },
+            "size": {
+              "width": 230,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "📝 Attacker extracts:\n  - DB credentials from __init__.py\n  - API keys from config files\n  - User data structure from schema.sql"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "4eb3c093-72eb-4b2c-9a34-37c4c209b13c",
+            "zIndex": 11,
+            "data": {
+              "type": "tm.Text",
+              "name": "📝 Attacker extracts:\n  - DB credentials from __init__.py\n  - API keys from config files\n  - User data structure from schema.sql",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 835,
+              "y": -255
+            },
+            "size": {
+              "width": 440,
+              "height": 160
+            },
+            "attrs": {
+              "text": {
+                "text": "🎯 PATH TRAVERSAL ATTACK FLOW:\n\n1. Attacker: GET /download?file=../app/schema.sql\n2. Flask: filepath = join(instance_path, '../app/schema.sql')\n3. Result: instance/../app/schema.sql → app/schema.sql\n4. Flask: send_file('app/schema.sql')  ← Escapes intended directory!\n5. Attacker: Downloads sensitive file\n6. Attacker: Extracts credentials\n7. Attacker: Direct database access"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "c1d0e595-648f-4a80-a05c-517b91f6a9fe",
+            "zIndex": 12,
+            "data": {
+              "type": "tm.Text",
+              "name": "🎯 PATH TRAVERSAL ATTACK FLOW:\n\n1. Attacker: GET /download?file=../app/schema.sql\n2. Flask: filepath = join(instance_path, '../app/schema.sql')\n3. Result: instance/../app/schema.sql → app/schema.sql\n4. Flask: send_file('app/schema.sql')  ← Escapes intended directory!\n5. Attacker: Downloads sensitive file\n6. Attacker: Extracts credentials\n7. Attacker: Direct database access",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 1960,
+              "y": 55
+            },
+            "size": {
+              "width": 260,
+              "height": 250
+            },
+            "attrs": {
+              "text": {
+                "text": "📁 FILE SYSTEM STRUCTURE:\n\n✅ INTENDED (Allowed):\n   /instance/statements/*.pdf\n\n🔴 RESTRICTED (Should be blocked):\n   /app/*.py (source code)\n   /app/*.sql (schema)\n   /config/*.ini (credentials)\n   /../ (parent directories)\n   /etc/* (system files)\n\n⚠️ VULNERABLE PATH:\n   /download?file=../app/schema.sql\n   → Escapes /instance/statements/\n   → Accesses /app/schema.sql"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "c1a0c0c4-3983-45f0-be14-e5d43c75cdb0",
+            "zIndex": 13,
+            "data": {
+              "type": "tm.Text",
+              "name": "📁 FILE SYSTEM STRUCTURE:\n\n✅ INTENDED (Allowed):\n   /instance/statements/*.pdf\n\n🔴 RESTRICTED (Should be blocked):\n   /app/*.py (source code)\n   /app/*.sql (schema)\n   /config/*.ini (credentials)\n   /../ (parent directories)\n   /etc/* (system files)\n\n⚠️ VULNERABLE PATH:\n   /download?file=../app/schema.sql\n   → Escapes /instance/statements/\n   → Accesses /app/schema.sql",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 1619.9999999999995,
+              "y": -170
+            },
+            "size": {
+              "width": 430,
+              "height": 200
+            },
+            "attrs": {
+              "text": {
+                "text": "⚠️ CRITICAL VULNERABILITY\n\nImpact: HIGH\nExploitability: EASY (just modify URL parameter)\nDetection: LOW (looks like normal file access)\n\nExposed Files:\n- app/schema.sql → Database structure\n- app/__init__.py → DB credentials\n- app/auth.py → Authentication logic\n- ../etc/passwd → System users (Linux)\n\nEscalation Path:\nFile Access → Credentials → Direct DB Access → Full Data Breach"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "c11ab290-a931-4353-a39e-2f0d21fb2a46",
+            "zIndex": 14,
+            "data": {
+              "type": "tm.Text",
+              "name": "⚠️ CRITICAL VULNERABILITY\n\nImpact: HIGH\nExploitability: EASY (just modify URL parameter)\nDetection: LOW (looks like normal file access)\n\nExposed Files:\n- app/schema.sql → Database structure\n- app/__init__.py → DB credentials\n- app/auth.py → Authentication logic\n- ../etc/passwd → System users (Linux)\n\nEscalation Path:\nFile Access → Credentials → Direct DB Access → Full Data Breach",
+              "hasOpenThreats": false
+            }
           }
         ]
       }
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 0
+    "threatTop": 3
   }
 }
