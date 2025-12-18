@@ -1016,11 +1016,1457 @@
         "placeholder": "New STRIDE diagram description",
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
         "version": "2.5.0",
-        "cells": []
+        "cells": [
+          {
+            "position": {
+              "x": 256.25,
+              "y": 29.999999999999957
+            },
+            "size": {
+              "width": 380,
+              "height": 130
+            },
+            "attrs": {
+              "label": {
+                "text": "Attacker's Account Zone"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "a8fcf395-b522-4837-b850-2f70f3306991",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Attacker's Account Zone",
+              "description": "Account_id=1 (admin)",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 270,
+              "y": 180.0000000000001
+            },
+            "size": {
+              "width": 360,
+              "height": 160
+            },
+            "attrs": {
+              "label": {
+                "text": "Victim's Account Zone"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "dde31dc4-8111-4ea6-bc9b-7783cd352624",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Victim's Account Zone",
+              "description": "Account_id=2",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 850,
+              "y": 0
+            },
+            "size": {
+              "width": 730,
+              "height": 320
+            },
+            "attrs": {
+              "label": {
+                "text": "Application Trust Boundary"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "37467312-dee8-4806-a5b6-aa33ee4c6862",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Application Trust Boundary",
+              "description": "Backend system",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 390,
+              "y": 80
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Attacker"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "0ea14896-ff13-4365-9407-957eb5a95959"
+                },
+                {
+                  "group": "right",
+                  "id": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+                },
+                {
+                  "group": "bottom",
+                  "id": "fdce5a05-0269-49eb-a6a7-6ed01bd29637"
+                },
+                {
+                  "group": "left",
+                  "id": "63a37790-5f15-4e81-9194-43a1ed7c817a"
+                }
+              ]
+            },
+            "id": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+            "zIndex": 1,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Attacker",
+              "description": "Authenticated user (admin, account_id=1)",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 390,
+              "y": 220
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Victim User"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "0ea14896-ff13-4365-9407-957eb5a95959"
+                },
+                {
+                  "group": "right",
+                  "id": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+                },
+                {
+                  "group": "bottom",
+                  "id": "fdce5a05-0269-49eb-a6a7-6ed01bd29637"
+                },
+                {
+                  "group": "left",
+                  "id": "63a37790-5f15-4e81-9194-43a1ed7c817a"
+                }
+              ]
+            },
+            "id": "36c861e5-07a0-451f-997b-8a649f8c5033",
+            "zIndex": 2,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Victim User",
+              "description": "Target user",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 940,
+              "y": 80
+            },
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "attrs": {
+              "text": {
+                "text": "Flask Account Details Route"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+                },
+                {
+                  "group": "right",
+                  "id": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+                },
+                {
+                  "group": "bottom",
+                  "id": "52e2a463-aade-4f70-8df3-7a294903fa6f"
+                },
+                {
+                  "group": "left",
+                  "id": "ccd80b7e-b74b-4742-81c5-9177ae30a345"
+                }
+              ]
+            },
+            "id": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Process",
+              "name": "Flask Account Details Route",
+              "description": "/account/<account_id> endpoint - missing authorization",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "8e3d56bd-90bb-47de-8452-7dbe8f4694e3",
+                  "title": "Broken Access Control",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Endpoint lacks authorization logic to verify account ownership \nbefore displaying sensitive financial data.",
+                  "mitigation": "1. Implement ownership verification\n2. Log all account access attempts\n3. Rate limit account queries\n4. Add account access audit trail",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1375,
+              "y": 140
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "d40c13b9-7dfe-4912-995c-c7f74b8728b9"
+                },
+                {
+                  "group": "right",
+                  "id": "1e720c1c-9f56-44d7-a1d1-dc5a5a5a2d3f"
+                },
+                {
+                  "group": "bottom",
+                  "id": "96a6ae4a-4ae1-4720-8a38-d5a1acc2d3e8"
+                },
+                {
+                  "group": "left",
+                  "id": "a2407ab5-156e-4907-99a5-040bb7cc60ef"
+                }
+              ]
+            },
+            "id": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite Database",
+              "description": "Contains accounts, users, transactions tables",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 667,
+              "y": 200
+            },
+            "size": {
+              "width": 150,
+              "height": 150
+            },
+            "attrs": {
+              "text": {
+                "text": "Authorization Check"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+                },
+                {
+                  "group": "right",
+                  "id": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+                },
+                {
+                  "group": "bottom",
+                  "id": "52e2a463-aade-4f70-8df3-7a294903fa6f"
+                },
+                {
+                  "group": "left",
+                  "id": "ccd80b7e-b74b-4742-81c5-9177ae30a345"
+                }
+              ]
+            },
+            "id": "d7b9ecb6-c4a5-4912-979b-d30ced5e1a85",
+            "zIndex": 5,
+            "data": {
+              "type": "tm.Process",
+              "name": "Authorization Check",
+              "description": "MISSING - Should verify account ownership",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "This component is MISSING in the vulnerable implementation",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "c6d6c011-91dd-4a41-b74f-0d08c99604e2",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Spoofing",
+                  "description": "Provide a description for this threat",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": true,
+                  "number": 7,
+                  "score": ""
+                },
+                {
+                  "id": "bb030c79-3604-43de-a19c-7a062fe8fb6f",
+                  "title": "Missing Authorization Component",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "No authorization layer exists to enforce account isolation. \nThis is a fundamental design flaw allowing horizontal privilege escalation.",
+                  "mitigation": "Implement authorization middleware that checks:\n- Is user authenticated?\n- Does account belong to user?\n- Does user have permission to view account?",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP GET (Own Account)",
+              "description": "Legitimate access to /account/1",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "HTTP GET (Own Account)"
+            ],
+            "id": "7bdc0ee5-bbb5-49ec-b14c-7db7dc038614",
+            "source": {
+              "cell": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+              "port": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query Own Account",
+              "description": "SELECT * FROM accounts WHERE id = 1",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Query Own Account"
+            ],
+            "id": "6d940dec-570b-4e21-bf05-0c1514cda3c5",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+            },
+            "target": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "a2407ab5-156e-4907-99a5-040bb7cc60ef"
+            },
+            "vertices": [
+              {
+                "x": 1260,
+                "y": 130
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Account Data (Own)",
+              "description": "Return attacker's account info",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Account Data (Own)"
+            ],
+            "id": "8910a7da-2487-44bc-b687-30d89822ddcd",
+            "source": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "a2407ab5-156e-4907-99a5-040bb7cc60ef"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+            },
+            "vertices": [
+              {
+                "x": 1260,
+                "y": 230
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response (Own)",
+              "description": "Display attacker's account details",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response (Own)"
+            ],
+            "id": "bb67cd5d-e192-495e-9f23-db7b056a15f0",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "ccd80b7e-b74b-4742-81c5-9177ae30a345"
+            },
+            "target": {
+              "cell": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+              "port": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP GET (IDOR Attack)",
+              "description": "Unauthorized access to /account/2",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": [
+                {
+                  "id": "046d4516-9573-4060-9cd6-958f4e83e775",
+                  "title": "Insecure Direct Object Reference (IDOR)",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Attacker manipulates account_id in URL from /account/1 to /account/2 \nto access other users' account details without authorization check.",
+                  "mitigation": "1. Add authorization check: verify account['user_id'] == session['user_id']\n2. Use indirect reference (UUID instead of sequential ID)\n3. Implement role-based access control",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "HTTP GET (IDOR Attack)"
+            ],
+            "id": "60a4b472-653e-49e4-b3be-21d415c45f8d",
+            "source": {
+              "cell": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+              "port": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": [
+              {
+                "x": 790,
+                "y": 30
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query Victim Account",
+              "description": "SELECT * FROM accounts WHERE id = 2 (NO AUTH CHECK)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": [
+                {
+                  "id": "5501216e-f969-4752-89c5-7205ed7e6d53",
+                  "title": "Missing Authorization Check",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "Database query executes without verifying account ownership, \nallowing any authenticated user to access any account data.",
+                  "mitigation": "Add SQL query filter: WHERE id = ? AND user_id = ?",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "Query Victim Account"
+            ],
+            "id": "bb2f74c0-ce4c-4486-81f2-f433684bb14a",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "2e35c5e0-e5e9-45b5-bf1c-85e5c1fd0764"
+            },
+            "target": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "a2407ab5-156e-4907-99a5-040bb7cc60ef"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query User Info",
+              "description": "SELECT * FROM users WHERE id = 2",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Query User Info"
+            ],
+            "id": "7ae45711-6000-41e6-b614-5b57c3f58a1d",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "52e2a463-aade-4f70-8df3-7a294903fa6f"
+            },
+            "target": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "96a6ae4a-4ae1-4720-8a38-d5a1acc2d3e8"
+            },
+            "vertices": [
+              {
+                "x": 1280,
+                "y": 260
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Account Data (Victim)",
+              "description": "Return account (balance=$5000)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Account Data (Victim)"
+            ],
+            "id": "078db459-853f-4d3a-9184-a75862ff3222",
+            "source": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "d40c13b9-7dfe-4912-995c-c7f74b8728b9"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": [
+              {
+                "x": 1260,
+                "y": 80
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "User Data",
+              "description": "personal info (email, name)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "User Data"
+            ],
+            "id": "5ab70e1f-1836-4e17-a079-a6e3a99f7857",
+            "source": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "d40c13b9-7dfe-4912-995c-c7f74b8728b9"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": [
+              {
+                "x": 1230,
+                "y": 100
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Query Transactions",
+              "description": "Get transaction history",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Query Transactions"
+            ],
+            "id": "a4188965-4993-47af-afbb-649c11394c9a",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "52e2a463-aade-4f70-8df3-7a294903fa6f"
+            },
+            "target": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "96a6ae4a-4ae1-4720-8a38-d5a1acc2d3e8"
+            },
+            "vertices": [
+              {
+                "x": 1290,
+                "y": 300
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Transaction Data",
+              "description": "All transactions for account_id=2",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "Transaction Data"
+            ],
+            "id": "85233c2c-ac0a-4cb4-962f-a839401143c1",
+            "source": {
+              "cell": "2e46e317-27df-411b-b70d-f5f0bb35030e",
+              "port": "d40c13b9-7dfe-4912-995c-c7f74b8728b9"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": [
+              {
+                "x": 1250,
+                "y": 40
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response (Unauthorized)",
+              "description": "Attacker views complete account details",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response (Unauthorized)"
+            ],
+            "id": "e879f1c6-54ee-4079-864a-33bac7414e54",
+            "source": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "52e2a463-aade-4f70-8df3-7a294903fa6f"
+            },
+            "target": {
+              "cell": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+              "port": "c6a587bd-016e-4518-a1ef-611ab5a8ae2c"
+            },
+            "vertices": [
+              {
+                "x": 780,
+                "y": 190
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Account Enumeration",
+              "description": "Test /account/3, /account/4, etc.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "HTTP",
+              "threats": []
+            },
+            "labels": [
+              "Account Enumeration"
+            ],
+            "id": "b6ed803f-7ebf-4242-841f-119e6c3fdc68",
+            "source": {
+              "cell": "58b0c78f-5781-4829-95e3-bb6d9b4e282a",
+              "port": "0ea14896-ff13-4365-9407-957eb5a95959"
+            },
+            "target": {
+              "cell": "40fff4f7-7cc3-428a-a8a9-ad40559e2bf6",
+              "port": "b41b38fc-dbe5-4da2-a81c-b1250ebf28c9"
+            },
+            "vertices": [
+              {
+                "x": 750,
+                "y": -10
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 39.999999999999545,
+              "y": 200.00000000000074
+            },
+            "size": {
+              "width": 310,
+              "height": 180
+            },
+            "attrs": {
+              "text": {
+                "text": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns Alice's data\n  6. Attacker views Alice's balance: $5,000\n  7. Repeat for /account/3, /account/4..."
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "bc79bf65-e72d-4214-9387-2804388e784b",
+            "zIndex": 11,
+            "data": {
+              "type": "tm.Text",
+              "name": "🎯 IDOR ATTACK FLOW:\n  \n  1. Attacker logs in (account_id=1)\n  2. Views own account: /account/1 ✅\n  3. Changes URL to: /account/2 🔴\n  4. Flask queries database (NO AUTH CHECK)\n  5. Database returns Alice's data\n  6. Attacker views Alice's balance: $5,000\n  7. Repeat for /account/3, /account/4...",
+              "hasOpenThreats": false
+            }
+          }
+        ]
       }
     ],
     "diagramTop": 2,
     "reviewer": "",
-    "threatTop": 3
+    "threatTop": 8
   }
 }
