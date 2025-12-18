@@ -654,6 +654,154 @@
                 "y": 470
               }
             ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "File System Access (Unauthorized)",
+              "description": "Protocol: File I/O\n  Data: \"Read request for app/schema.sql\"\n  Description: \"Application reads file outside intended directory\"\n  \n  Accessed Files:\n  - app/schema.sql (database structure)\n  - app/auth.py (source code)\n  - app/__init__.py (config with credentials)",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "File System Access (Unauthorized)"
+            ],
+            "id": "08658393-9956-430b-9a93-e3385d1f88cc",
+            "source": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "c7bfda54-63a0-4fd9-83c0-d1ead200b808"
+            },
+            "target": {
+              "cell": "baf8564d-7799-4ed5-9dab-7dc842f0aef2",
+              "port": "27b1bcde-1480-499a-ae7a-58eca726c858"
+            },
+            "vertices": [
+              {
+                "x": 1430,
+                "y": 110
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Sensitive File Content",
+              "description": "Data: \"Database schema, source code, configuration\"\n  Description: \"File system returns unauthorized file content\"\n  \n  Exposed Information:\n  - Database structure and relationships\n  - Application source code\n  - Database credentials\n  - API keys and secrets\n  - System configuration",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Sensitive File Content"
+            ],
+            "id": "ba57f287-d0bd-4cce-b6a3-4697e3de6af3",
+            "source": {
+              "cell": "baf8564d-7799-4ed5-9dab-7dc842f0aef2",
+              "port": "27b1bcde-1480-499a-ae7a-58eca726c858"
+            },
+            "target": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "c7bfda54-63a0-4fd9-83c0-d1ead200b808"
+            },
+            "vertices": [
+              {
+                "x": 1430,
+                "y": 260
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Response (File Download)",
+              "description": "Protocol: HTTP\n  Data: \"Sensitive file content as download\"\n  Content-Type: \"application/octet-stream\"\n  Description: \"Attacker receives unauthorized file\"",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Response (File Download)"
+            ],
+            "id": "47334909-e3df-455f-86bb-7f872270ce92",
+            "source": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "a702111b-98c4-4716-87a4-2563fc399433"
+            },
+            "target": {
+              "cell": "836ccc15-4637-4bcf-b3f5-ce79433d6ee7",
+              "port": "6568a069-fda0-43af-ad68-523780faa50e"
+            },
+            "vertices": []
           }
         ]
       }
