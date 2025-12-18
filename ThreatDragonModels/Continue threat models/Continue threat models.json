@@ -19,8 +19,60 @@
         "cells": [
           {
             "position": {
-              "x": 370,
-              "y": 140
+              "x": 1614.9999999999995,
+              "y": 210
+            },
+            "size": {
+              "width": 330,
+              "height": 50
+            },
+            "attrs": {
+              "label": {
+                "text": "Intended Directory (instance/statements/)"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "0b655cbc-2753-4e83-a710-5bb64f76e4ea",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Intended Directory (instance/statements/)",
+              "description": "Allowed directory for user file downloads",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 790,
+              "y": -95
+            },
+            "size": {
+              "width": 1320,
+              "height": 550
+            },
+            "attrs": {
+              "label": {
+                "text": "Application Trust Boundary"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "4690ad5b-c789-4810-a631-7ed5baeda7a1",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Application Trust Boundary",
+              "description": "Protected areas: app/, config files, system files",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 590,
+              "y": -80
             },
             "size": {
               "width": 112.5,
@@ -256,12 +308,12 @@
           },
           {
             "position": {
-              "x": 514,
-              "y": 80
+              "x": 1619.9999999999995,
+              "y": 75
             },
             "size": {
-              "width": 120,
-              "height": 60
+              "width": 320,
+              "height": 210
             },
             "attrs": {
               "text": {
@@ -278,6 +330,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -361,7 +414,6 @@
               ]
             },
             "id": "baf8564d-7799-4ed5-9dab-7dc842f0aef2",
-            "zIndex": 3,
             "data": {
               "type": "tm.Store",
               "name": "File System",
@@ -377,6 +429,231 @@
               "storesInventory": false,
               "threats": []
             }
+          },
+          {
+            "position": {
+              "x": 586.25,
+              "y": 245
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "SQLite Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "dcc75be5-ab6d-47a5-b839-07296b50731a"
+                },
+                {
+                  "group": "right",
+                  "id": "3a08cfcf-33ff-435f-b4a2-83c2e08946e0"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5d166603-aec6-40c8-9a08-d3440afb30b1"
+                },
+                {
+                  "group": "left",
+                  "id": "76f8fc6b-4885-43c9-941d-8a57e9603f1c"
+                }
+              ]
+            },
+            "id": "b487134d-f2df-4058-b8e1-04488737bc53",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Store",
+              "name": "SQLite Database",
+              "description": "Target for credential escalation",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP GET (Path Traversal)",
+              "description": "Protocol: HTTP\n  Data: \"file=../app/schema.sql\"\n  URL: \"http://localhost:5000/download?file=../app/schema.sql\"\n  Description: \"Attacker sends request with path traversal payload\"\n  \n  Attack Payload Examples:\n  - ../app/schema.sql\n  - ../app/auth.py\n  - ../app/__init__.py\n  - ../../etc/passwd\n  - ../../../windows/system32/config/sam",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "HTTP GET (Path Traversal)"
+            ],
+            "id": "85e4dd14-37fc-4e38-bb1b-ba6e03039836",
+            "source": {
+              "cell": "836ccc15-4637-4bcf-b3f5-ce79433d6ee7",
+              "port": "545d63d4-cb6c-4a73-82fb-d0df7abfa442"
+            },
+            "target": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "1d36fe06-83f8-4c97-929c-39e5d0008de0"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Vulnerable Path Construction",
+              "description": "Data: \"os.path.join(instance_path, '../app/schema.sql')\"\n  Description: \"Path constructed without validation\"\n  \n  Vulnerable Code:\n  filepath = os.path.join(app.instance_path, filename)\n  # Result: instance/../app/schema.sql → app/schema.sql\n  \n  ⚠️ NO VALIDATION:\n  - No path normalization\n  - No whitelist check\n  - No absolute path verification",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Vulnerable Path Construction"
+            ],
+            "id": "4bbb6445-d945-4c45-9e52-1018f5862b1a",
+            "source": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "4efe62fe-208b-4282-93dd-71c21f379ed2"
+            },
+            "target": {
+              "cell": "cc0e8317-af85-4e1e-843a-fd245ad7434f",
+              "port": "4efe62fe-208b-4282-93dd-71c21f379ed2"
+            },
+            "vertices": [
+              {
+                "x": 990,
+                "y": 470
+              },
+              {
+                "x": 1120,
+                "y": 470
+              }
+            ]
           }
         ]
       }
